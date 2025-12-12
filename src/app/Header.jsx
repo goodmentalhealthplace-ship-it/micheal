@@ -1,153 +1,185 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { IoChevronDown, IoMenu, IoClose } from "react-icons/io5";
+
+// Define the primary brand color for easy maintenance
+const BRAND_COLOR_HOVER = "hover:text-[#FFAA00]";
+const BRAND_COLOR_TEXT = "text-[#FFAA00]";
 
 export default function Header() {
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const headerRef = useRef(null); // Ref for handling outside clicks
 
+  // Function to toggle desktop dropdown menus
   const toggleMenu = (menuName) => {
     setOpenMenu(openMenu === menuName ? null : menuName);
   };
 
+  // Function for navigation and closing menus
   const go = (route) => {
     router.push(route);
     setOpenMenu(null);
     setMobileOpen(false);
   };
 
+  // Effect to close desktop menus when clicking outside the header
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close dropdown menus only if the click is outside the header
+      if (headerRef.current && !headerRef.current.contains(event.target)) {
+        setOpenMenu(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // --- MENU DATA STRUCTURE (For cleaner rendering) ---
+  const desktopNavItems = [
+    { name: "Home", route: "/" },
+    {
+      name: "About",
+      menuName: "about",
+      subItems: [
+        { name: "Services", route: "/services" },
+        { name: "Our Team", route: "/team" },
+        { name: "FAQ", route: "/faq" },
+      ],
+    },
+    {
+      name: "Conditions",
+      menuName: "conditions",
+      subItems: [
+        { name: "Anxiety", route: "/anxiety" },
+        { name: "Depression", route: "/depression" },
+        { name: "ADHD", route: "/adhd" },
+        { name: "OCD", route: "/ocd" },
+        { name: "Bipolar Disorder", route: "/bipolar" },
+        { name: "PTSD", route: "/ptsd" },
+      ],
+    },
+    { name: "Insurances", route: "/insurances" },
+    { name: "Appointments", route: "/appointments" },
+    { name: "Contact", route: "/contact" },
+  ];
+
+  // Utility function for active link styling (optional but good practice)
+  const isActive = (route) => router.pathname === route;
+
   return (
-    <header className="w-full bg-white shadow-sm  z-[9999]">
+    <header ref={headerRef} className="w-full bg-white shadow-lg sticky top-0 z-[9999]">
       <div className="max-w-7xl mx-auto px-6 lg:px-16 py-4 flex items-center justify-between">
         {/* LOGO */}
-        <button onClick={() => go("/")} className="flex items-center gap-2">
-          <Image src="/logo.png" width={280} height={50} alt="Logo" />
+        <button onClick={() => go("/")} className="flex items-center gap-2 focus:outline-none">
+          {/* Note: Ensure /logo.png exists in your public folder */}
+          <Image src="/logo.png" width={280} height={50} alt="Logo" priority />
         </button>
 
         {/* DESKTOP NAV */}
-        <nav className="hidden lg:flex items-center gap-8 text-gray-800 font-medium">
-          <button onClick={() => go("/")} className="hover:text-[#FFAA00] transition">
-            Home
-          </button>
+        <nav className="hidden lg:flex items-center gap-8 text-gray-700 font-semibold text-base">
+          {desktopNavItems.map((item) => (
+            <React.Fragment key={item.name}>
+              {item.subItems ? (
+                // Dropdown Item
+                <div className="relative group">
+                  <button
+                    onClick={() => toggleMenu(item.menuName)}
+                    className={`flex items-center gap-1 transition focus:outline-none 
+                               ${BRAND_COLOR_HOVER} 
+                               ${openMenu === item.menuName ? BRAND_COLOR_TEXT : ''}`}
+                  >
+                    {item.name} <IoChevronDown className={`transition-transform duration-300 ${openMenu === item.menuName ? 'rotate-180' : ''}`} />
+                  </button>
 
-          {/* ABOUT */}
-          <div className="relative">
-            <button
-              onClick={() => toggleMenu("about")}
-              className="flex items-center gap-1 hover:text-[#FFAA00]"
-            >
-              About <IoChevronDown />
-            </button>
-
-            {openMenu === "about" && (
-              <div className="absolute top-8 bg-white z-[9999] shadow-lg rounded-xl py-3 w-48">
-                <button onClick={() => go("/services")} className="block w-full px-4 py-2 hover:bg-gray-100">Services</button>
-                <button onClick={() => go("/team")} className="block w-full px-4 py-2 hover:bg-gray-100">Our Team</button>
-                <button onClick={() => go("/faq")} className="block w-full px-4 py-2 hover:bg-gray-100">FAQ</button>
-              </div>
-            )}
-          </div>
-
-          {/* CONDITIONS */}
-          <div className="relative">
-            <button
-              onClick={() => toggleMenu("conditions")}
-              className="flex items-center gap-1 hover:text-[#FFAA00]"
-            >
-              Conditions <IoChevronDown />
-            </button>
-
-            {openMenu === "conditions" && (
-              <div className="absolute top-8 bg-white z-[9999] shadow-lg rounded-xl py-3 w-48">
-                <button onClick={() => go("/anxiety")} className="block w-full px-4 py-2 hover:bg-gray-100">Anxiety</button>
-                <button onClick={() => go("/depression")} className="block w-full px-4 py-2 hover:bg-gray-100">Depression</button>
-                <button onClick={() => go("/adhd")} className="block w-full px-4 py-2 hover:bg-gray-100">ADHD</button>
-                <button onClick={() => go("/ocd")} className="block w-full px-4 py-2 hover:bg-gray-100">OCD</button>
-                <button onClick={() => go("/bipolar")} className="block w-full px-4 py-2 hover:bg-gray-100">Bipolar Disorder</button>
-                <button onClick={() => go("/ptsd")} className="block w-full px-4 py-2 hover:bg-gray-100">PTSD</button>
-              </div>
-            )}
-          </div>
-
-          {/* INSURANCES (Formerly PAYMENT METHODS - Now a single link) */}
-          <button onClick={() => go("/insurances")} className="hover:text-[#FFAA00] transition">
-            Insurances
-          </button>
-
-          <button onClick={() => go("/appointments")} className="hover:text-[#FFAA00] transition">
-            Appointments
-          </button>
-
-          {/* RESOURCES menu removed */}
-
-          <button onClick={() => go("/contact")} className="hover:text-[#FFAA00] transition">
-            Contact
-          </button>
+                  {openMenu === item.menuName && (
+                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white z-[10000] shadow-2xl border border-gray-100 rounded-lg py-2 min-w-48 transition-all duration-300 ease-out animate-in fade-in slide-in-from-top-1">
+                      {item.subItems.map((subItem) => (
+                        <button 
+                          key={subItem.name} 
+                          onClick={() => go(subItem.route)} 
+                          className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 transition 
+                                     ${BRAND_COLOR_HOVER} 
+                                     ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ''}`}
+                        >
+                          {subItem.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                // Single Link Item
+                <button
+                  onClick={() => go(item.route)}
+                  className={`transition focus:outline-none 
+                             ${BRAND_COLOR_HOVER} 
+                             ${isActive(item.route) ? BRAND_COLOR_TEXT : ''}`}
+                >
+                  {item.name}
+                </button>
+              )}
+            </React.Fragment>
+          ))}
         </nav>
 
         {/* MOBILE BURGER */}
         <button
-          className="lg:hidden text-3xl text-gray-700"
+          className="lg:hidden text-3xl text-gray-700 focus:outline-none"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
-          {mobileOpen ? <IoClose /> : <IoMenu />}
+          {mobileOpen ? <IoClose className={BRAND_COLOR_TEXT} /> : <IoMenu />}
         </button>
       </div>
 
       {/* MOBILE MENU */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white shadow-lg px-6 py-4 space-y-4 text-gray-800 font-medium z-[9999] relative">
-          <button onClick={() => go("/")} className="block w-full text-left py-2">Home</button>
-
-          {/* ABOUT MOBILE */}
-          <div>
-            <button onClick={() => toggleMenu("about")} className="flex justify-between w-full py-2">
-              About <IoChevronDown />
-            </button>
-            {openMenu === "about" && (
-              <div className="pl-4 space-y-2">
-                <button onClick={() => go("/services")} className="block py-1">Services</button>
-                <button onClick={() => go("/team")} className="block py-1">Our Team</button>
-                <button onClick={() => go("/faq")} className="block py-1">FAQ</button>
-              </div>
-            )}
-          </div>
-
-          {/* CONDITIONS MOBILE */}
-          <div>
-            <button onClick={() => toggleMenu("conditions")} className="flex justify-between w-full py-2">
-              Conditions <IoChevronDown />
-            </button>
-            {openMenu === "conditions" && (
-              <div className="pl-4 space-y-2">
-                <button onClick={() => go("/anxiety")} className="block py-1">Anxiety</button>
-                <button onClick={() => go("/depression")} className="block py-1">Depression</button>
-                <button onClick={() => go("/adhd")} className="block py-1">ADHD</button>
-                <button onClick={() => go("/ocd")} className="block py-1">OCD</button>
-                <button onClick={() => go("/bipolar")} className="block py-1">Bipolar Disorder</button>
-                <button onClick={() => go("/ptsd")} className="block py-1">PTSD</button>
-              </div>
-            )}
-          </div>
-
-          {/* INSURANCES MOBILE (Formerly PAYMENT METHODS - Now a single link) */}
-          <button onClick={() => go("/insurances")} className="block w-full text-left py-2">
-            Insurances
-          </button>
-
-          <button onClick={() => go("/appointments")} className="block w-full text-left py-2">
-            Appointments
-          </button>
-
-          {/* RESOURCES menu removed */}
-
-          <button onClick={() => go("/contact")} className="block w-full text-left py-2">
-            Contact
-          </button>
+        <div className="lg:hidden bg-white shadow-xl px-6 py-4 space-y-2 text-gray-700 font-semibold z-[9999] absolute w-full top-[100%] transition-all duration-300 ease-out animate-in fade-in slide-in-from-top-2">
+          {desktopNavItems.map((item) => (
+            <div key={`mobile-${item.name}`}>
+              {item.subItems ? (
+                // Mobile Dropdown
+                <>
+                  <button
+                    onClick={() => toggleMenu(item.menuName)}
+                    className="flex justify-between items-center w-full py-2"
+                  >
+                    {item.name} <IoChevronDown className={`transition-transform duration-300 ${openMenu === item.menuName ? 'rotate-180' : ''}`} />
+                  </button>
+                  {openMenu === item.menuName && (
+                    <div className="pl-4 space-y-1 py-1 border-l-2 border-[#FFAA00]">
+                      {item.subItems.map((subItem) => (
+                        <button 
+                          key={`mobile-${subItem.name}`} 
+                          onClick={() => go(subItem.route)} 
+                          className={`block w-full text-left py-1 text-sm text-gray-600 
+                                     ${BRAND_COLOR_HOVER}
+                                     ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ''}`}
+                        >
+                          {subItem.name}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                // Mobile Single Link
+                <button
+                  onClick={() => go(item.route)}
+                  className={`block w-full text-left py-2 
+                             ${isActive(item.route) ? BRAND_COLOR_TEXT : ''}`}
+                >
+                  {item.name}
+                </button>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </header>
