@@ -1,54 +1,67 @@
 "use client";
+
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { 
-  FaBrain, FaRegSadTear, FaBalanceScale, FaLightbulb, 
-  FaMoon, FaShieldAlt 
-} from "react-icons/fa"; // Switched all icons to the stable Fa set
+import { FaShieldAlt } from "react-icons/fa"; 
 
 export default function Conditions() {
   // === BRAND COLORS from Logo ===
   const BRAND_PRIMARY = "#1A435A"; // Dark Blue/Teal
   const BRAND_SECONDARY = "#4CAF50"; // Bright Green
   const BRAND_ACCENT = "#FF9800"; // Warm Orange
+  const BRAND_GRAY = "#E0E0E0"; // Light gray for card accents
 
   const conditions = [
-    { 
-      title: "Anxiety Disorders", 
-      icon: FaBrain, // Changed from GiNervousSystem
-      description: "Generalized anxiety, social anxiety, and panic disorder.", 
-      color: BRAND_SECONDARY
+    {
+      title: "Depression",
+      imagePath: "/depression.png",
+      description: "Major depression, persistent depressive disorder (dysthymia).",
+      color: BRAND_PRIMARY,
+      href: "/conditions/depression",
     },
-    { 
-      title: "Depression", 
-      icon: FaRegSadTear, 
-      description: "Major depression, persistent depressive disorder (dysthymia).", 
-      color: BRAND_PRIMARY
+    {
+      title: "Anxiety Disorders",
+      imagePath: "/anxiety.png",
+      description: "Generalized anxiety, social anxiety, and panic disorder.",
+      color: BRAND_SECONDARY,
+      href: "/conditions/anxiety",
     },
-    { 
-      title: "Bipolar Disorder", 
-      icon: FaBalanceScale, // Changed from GiUnstableState
-      description: "Managing mood swings, manic, and depressive episodes.", 
-      color: BRAND_ACCENT
+    {
+      title: "Bipolar Disorder",
+      imagePath: "/bipolar.png",
+      description: "Managing mood swings, manic, and depressive episodes.",
+      color: BRAND_ACCENT,
+      href: "/conditions/bipolar",
     },
-    { 
-      title: "ADHD", 
-      icon: FaLightbulb, 
-      description: "Focus, impulsivity, and organizational challenges.", 
-      color: BRAND_SECONDARY
+    {
+      title: "OCD",
+      imagePath: "/ocd.png",
+      description: "Obsessive-compulsive and related disorders.",
+      color: BRAND_PRIMARY,
+      href: "/conditions/ocd",
     },
-    { 
-      title: "Sleep Issues", 
-      icon: FaMoon, 
-      description: "Insomnia, nightmares, and other sleep-related mental health impacts.", 
-      color: BRAND_PRIMARY
+    {
+      title: "Schizophrenia",
+      imagePath: "/schizophrenia.png",
+      description: "Psychosis, thought disorders, and reality testing.",
+      color: BRAND_SECONDARY,
+      href: "/conditions/schizophrenia",
     },
-    { 
-      title: "PTSD & Trauma", 
-      icon: FaShieldAlt, // Changed from GiSpikedShield
-      description: "Coping with trauma symptoms, flashbacks, and hypervigilance.", 
-      color: BRAND_ACCENT
+    {
+      title: "ADHD",
+      imagePath: "/adhd.png",
+      description: "Focus, impulsivity, and organizational challenges.",
+      color: BRAND_ACCENT,
+      href: "/conditions/adhd",
+    },
+    {
+      title: "PTSD & Trauma",
+      imagePath: "/ptsd.png",
+      description: "Coping with trauma symptoms, flashbacks, and hypervigilance.",
+      color: BRAND_PRIMARY,
+      href: "/conditions/ptsd",
     },
   ];
 
@@ -60,9 +73,9 @@ export default function Conditions() {
       transition: {
         delay: i * 0.08,
         duration: 0.5,
-        ease: "easeOut"
-      }
-    })
+        ease: "easeOut",
+      },
+    }),
   };
 
   return (
@@ -81,11 +94,14 @@ export default function Conditions() {
             Our compassionate specialists are here to guide you toward healing and stability, addressing a wide range of mental health challenges.
           </p>
           {/* Divider bar with Dark Blue/Teal color */}
-          <div style={{ backgroundColor: BRAND_PRIMARY }} className="h-1.5 w-24 mt-4 mx-auto rounded-full" />
+          <div
+            style={{ backgroundColor: BRAND_PRIMARY }}
+            className="h-1.5 w-24 mt-4 mx-auto rounded-full"
+          />
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-
+        {/* MODIFIED GRID LAYOUT: grid-cols-1 (mobile), sm:grid-cols-3 (tablet), and lg:grid-cols-3 (desktop) */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
           {conditions.map((condition, i) => (
             <motion.div
               key={i}
@@ -94,47 +110,60 @@ export default function Conditions() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={cardVariants}
-              className="p-6 md:p-8 rounded-3xl bg-white shadow-lg border-2 border-transparent hover:shadow-[0_20px_40px_rgba(26,67,90,0.05)] transition-all duration-300 flex flex-col items-center text-center group"
-              style={{
-                borderColor: "transparent",
-                transition: "border-color 0.3s ease",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = `${condition.color}40`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = "transparent";
-              }}
+              className="rounded-3xl bg-white shadow-xl hover:shadow-[0_20px_40px_rgba(26,67,90,0.08)] transition-all duration-300 flex flex-col group hover:scale-[1.03] overflow-hidden"
             >
-              <div 
-                style={{ color: condition.color, backgroundColor: `${condition.color}10` }}
-                className="mb-4 p-4 rounded-full transition-colors duration-300"
+              {/* IMAGE DISPLAY AREA - FULL WIDTH BANNER */}
+              <div
+                className="w-full aspect-video relative rounded-t-3xl"
+                style={{
+                  backgroundColor: BRAND_GRAY,
+                }}
               >
-                <condition.icon size={42} />
+                <Image
+                  src={condition.imagePath}
+                  alt={condition.title}
+                  fill
+                  objectFit="cover"
+                  className="rounded-t-3xl"
+                />
               </div>
               
-              <h3 className="font-extrabold text-gray-950 text-lg md:text-xl mb-3 leading-tight">
-                {condition.title}
-              </h3>
-              
-              <p className="text-sm text-gray-600 font-medium flex-grow">
-                {condition.description}
-              </p>
+              {/* TEXT CONTENT AREA */}
+              <div className="p-4 md:p-6 flex flex-col items-center text-center flex-grow">
+                <h3 className="font-extrabold text-gray-950 text-lg md:text-xl mb-3 leading-tight">
+                  {condition.title}
+                </h3>
+
+                <p className="text-sm text-gray-600 font-medium flex-grow">
+                  {condition.description}
+                </p>
+
+                {/* Optional Link to Condition Page */}
+                <Link
+                  href={condition.href}
+                  style={{ color: condition.color }}
+                  className="text-sm font-bold mt-3 inline-flex items-center gap-1 hover:underline"
+                >
+                  Learn More →
+                </Link>
+              </div>
             </motion.div>
           ))}
         </div>
 
         <div className="text-center mt-16">
-          <Link 
-            href="/conditions"
-            style={{ 
-              backgroundColor: BRAND_PRIMARY, 
+          <Link
+            // 🏆 UPDATED HREF
+            href="/services"
+            style={{
+              backgroundColor: BRAND_PRIMARY,
               color: 'white',
-              boxShadow: `0 8px 20px -5px ${BRAND_PRIMARY}60` 
+              boxShadow: `0 8px 20px -5px ${BRAND_PRIMARY}60`,
             }}
             className="px-10 py-5 rounded-2xl font-black text-xl transition transform hover:-translate-y-0.5 hover:shadow-xl inline-flex items-center gap-2"
           >
-            View All Conditions We Treat
+            {/* 🏆 UPDATED TEXT */}
+            Explore Services
           </Link>
         </div>
       </div>

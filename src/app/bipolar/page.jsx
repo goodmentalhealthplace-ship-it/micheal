@@ -13,10 +13,10 @@ import {
 } from 'react-icons/fa';
 
 // --- BRAND COLOR CODES ---
-// Highlight Blue: #306EFF (Trust, Authority)
-// Accent Orange: #FFAA00 (Action, Focus)
-// Secondary Green: #30A04C (Wellness, Hope)
-// Dark Text: #1A1A1A
+const HIGHLIGHT_BLUE = "#306EFF"; // Trust, Authority
+const ACCENT_ORANGE = "#FFAA00"; // Action, Focus
+const SECONDARY_GREEN = "#30A04C"; // Wellness, Hope
+const DARK_TEXT = "#1A1A1A"; // Dark Text
 
 export default function BipolarDisorderPage() {
 
@@ -24,19 +24,19 @@ export default function BipolarDisorderPage() {
     { 
       title: "Mood Stabilizers & Medication", 
       icon: FaPills, 
-      color: "#306EFF", 
+      color: HIGHLIGHT_BLUE, 
       description: "Careful management of medications (e.g., mood stabilizers, antipsychotics) tailored to your specific cycle pattern."
     },
     { 
       title: "Psychotherapy & Psychoeducation", 
       icon: FaUserFriends, 
-      color: "#FFAA00", 
+      color: ACCENT_ORANGE, 
       description: "Therapy focused on recognizing triggers, managing emotional regulation, and improving interpersonal rhythm."
     },
     { 
       title: "Routine & Lifestyle Management", 
       icon: FaRegCheckCircle, 
-      color: "#30A04C", 
+      color: SECONDARY_GREEN, 
       description: "Strategies to stabilize sleep, diet, and daily routine, which are crucial anchors for mood stability."
     },
   ];
@@ -59,24 +59,50 @@ export default function BipolarDisorderPage() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
-        {/* === 1. HERO & VALIDATION BLOCK (Focus on stability) === */}
-        <motion.div variants={fadeInUp} className="bg-[#F8F9FA] p-8 md:p-16 rounded-[40px] shadow-xl border-t-8 border-[#306EFF] text-center">
+        {/* === 1. HERO: LEFT TEXT / RIGHT IMAGE (/bipolar.png) === */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
           
-          <h1 className="text-4xl md:text-6xl font-black text-[#1A1A1A] leading-tight mb-4">
-            Achieving Lasting <span className="text-[#30A04C]">Stability</span> with Bipolar Disorder
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto mb-8">
-            Bipolar disorder involves significant shifts in mood, energy, and activity levels. We provide expert, compassionate care focused on accurate diagnosis and creating a stable, personalized long-term management plan.
-          </p>
-
-          <Link 
-            href="/appointments"
-            className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl bg-[#FFAA00] transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+          {/* Left Column: Text & CTA */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            className="lg:pr-10"
           >
-            <FaCalendarCheck /> Schedule a Comprehensive Evaluation
-          </Link>
-        </motion.div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black" style={{ color: DARK_TEXT }}>
+              Achieving Lasting <span style={{ color: SECONDARY_GREEN }}>Stability</span> with Bipolar Disorder
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-700 max-w-lg mt-4 mb-8">
+              Bipolar disorder involves significant shifts in mood, energy, and activity levels. We provide expert, compassionate care focused on accurate diagnosis and creating a stable, personalized long-term management plan.
+            </p>
+
+            <Link 
+              href="/appointments"
+              className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+              style={{ backgroundColor: ACCENT_ORANGE }}
+            >
+              <FaCalendarCheck /> Schedule a Comprehensive Evaluation
+            </Link>
+          </motion.div>
+
+          {/* Right Column: Hero Image */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            transition={{ delay: 0.15 }}
+            className="w-full h-80 lg:h-[400px] relative overflow-hidden rounded-[40px] shadow-2xl"
+          >
+            <Image 
+              src="/bipolar.png" // Using the specified image path
+              alt="Image representing stability, balance, and mood regulation for Bipolar Disorder"
+              layout="fill"
+              objectFit="contain" // Changed to object-contain for full visibility
+              priority
+            />
+          </motion.div>
+        </section>
 
         {/* === 2. Understanding the Bipolar Spectrum === */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20 items-start">
@@ -92,7 +118,7 @@ export default function BipolarDisorderPage() {
               Michael Nwanna utilizes his medical expertise to differentiate between the types and ensure your treatment targets the core mechanisms of your specific disorder for optimal control.
             </p>
             
-            {/* Image Placeholder 1: Visualizing the mood swings */}
+            {/* Image Placeholder 1: Visualizing the mood swings - Object-contain is already applied here */}
             <div className="w-full h-64 relative rounded-xl overflow-hidden mt-6 shadow-lg border border-gray-100">
                 <Image
                     src="/bipolar-mood-cycle.jpg"
@@ -175,7 +201,7 @@ export default function BipolarDisorderPage() {
             ))}
           </div>
           
-          {/* Image Placeholder 2: Stability and support */}
+          {/* Image Placeholder 2: Stability and support - Object-contain is already applied here */}
           <div className="w-full h-80 relative rounded-xl overflow-hidden mt-12 shadow-2xl">
               <Image
                   src="/bipolar-stability-support.jpg"
@@ -192,6 +218,7 @@ export default function BipolarDisorderPage() {
         <motion.div 
           variants={fadeInUp}
           className="mt-20 bg-[#1B3C6A] p-8 md:p-12 rounded-[40px] text-white text-center shadow-2xl"
+          style={{ backgroundColor: HIGHLIGHT_BLUE }}
         >
           <h3 className="text-3xl md:text-4xl font-black mb-4 tracking-tight leading-tight">
             Ready to find your anchor of stability?
@@ -202,7 +229,8 @@ export default function BipolarDisorderPage() {
           
           <Link 
             href="/appointments"
-            className="px-12 py-6 rounded-2xl font-black text-2xl text-white shadow-xl bg-[#FFAA00] transition transform hover:scale-[1.03] hover:shadow-2xl inline-flex items-center justify-center"
+            className="px-12 py-6 rounded-2xl font-black text-2xl text-white shadow-xl transition transform hover:scale-[1.03] hover:shadow-2xl inline-flex items-center justify-center"
+            style={{ backgroundColor: ACCENT_ORANGE }}
           >
             Book Your Expert Consultation
           </Link>

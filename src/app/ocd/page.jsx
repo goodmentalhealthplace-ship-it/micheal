@@ -5,7 +5,6 @@ import Image from 'next/image'; // Import Image for Next.js
 import { motion } from 'framer-motion';
 import { 
   FaBrain, 
-  FaHandSparkles, 
   FaRedoAlt, 
   FaCalendarCheck,
   FaShieldAlt,
@@ -14,10 +13,10 @@ import {
 } from 'react-icons/fa';
 
 // --- BRAND COLOR CODES ---
-// Highlight Blue: #306EFF (Trust, Authority)
-// Accent Orange: #FFAA00 (Action, Focus)
-// Secondary Green: #30A04C (Wellness, Hope)
-// Dark Text: #1A1A1A
+const HIGHLIGHT_BLUE = "#306EFF"; // Trust, Authority
+const ACCENT_ORANGE = "#FFAA00"; // Action, Focus
+const SECONDARY_GREEN = "#30A04C"; // Wellness, Hope
+const DARK_TEXT = "#1A1A1A"; // Dark Text
 
 export default function OCDTreatmentPage() {
 
@@ -31,19 +30,19 @@ export default function OCDTreatmentPage() {
     { 
       title: "Exposure and Response Prevention (ERP)", 
       icon: FaShieldAlt, 
-      color: "#30A04C", // Secondary Green
+      color: SECONDARY_GREEN, // Secondary Green
       description: "The gold- standard, evidence-based therapy to gradually confront fears without engaging in compulsions."
     },
     { 
       title: "Psychiatric Medication", 
       icon: FaMedkit, 
-      color: "#306EFF", // Highlight Blue
+      color: HIGHLIGHT_BLUE, // Highlight Blue
       description: "Careful use of SSRIs and other medications to reduce the frequency and intensity of obsessive thoughts."
     },
     { 
       title: "Psychoeducation & Support", 
       icon: FaBrain, 
-      color: "#FFAA00", // Accent Orange
+      color: ACCENT_ORANGE, // Accent Orange
       description: "Gaining a deep understanding of OCD mechanisms to restore control and reduce self-blame."
     },
   ];
@@ -66,24 +65,51 @@ export default function OCDTreatmentPage() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
-        {/* === 1. HERO & VALIDATION BLOCK (Focus on breaking the cycle) === */}
-        <motion.div variants={fadeInUp} className="bg-[#F8F9FA] p-8 md:p-16 rounded-[40px] shadow-xl border-t-8 border-[#30A04C] text-center">
+        {/* === 1. HERO: LEFT TEXT / RIGHT IMAGE (/ocd.png) === */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
           
-          <h1 className="text-4xl md:text-6xl font-black text-[#1A1A1A] leading-tight mb-4">
-            Breaking the Cycle of OCD
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto mb-8">
-            Obsessive-Compulsive Disorder is a cycle of intense anxiety and exhausting rituals. We offer focused, evidence-based treatment to help you regain control, peace, and time.
-          </p>
-
-          <Link 
-            href="/appointments"
-            className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl bg-[#306EFF] transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+          {/* Left Column: Text & CTA */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            className="lg:pr-10"
           >
-            <FaCalendarCheck /> Schedule an OCD Consultation
-          </Link>
-        </motion.div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black" style={{ color: DARK_TEXT }}>
+              Breaking the Cycle of <span style={{ color: SECONDARY_GREEN }}>Obsessive-Compulsive Disorder</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-700 max-w-lg mt-4 mb-8">
+              Obsessive-Compulsive Disorder is a cycle of intense anxiety and exhausting rituals. We offer focused, evidence-based treatment, including ERP, to help you regain control, peace, and time.
+            </p>
+
+            <Link 
+              href="/appointments"
+              className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+              style={{ backgroundColor: HIGHLIGHT_BLUE }}
+            >
+              <FaCalendarCheck /> Schedule an OCD Consultation
+            </Link>
+          </motion.div>
+
+          {/* Right Column: Hero Image */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            transition={{ delay: 0.15 }}
+            className="w-full h-80 lg:h-[400px] relative overflow-hidden rounded-[40px] shadow-2xl"
+          >
+            <Image 
+              src="/ocd.png" // Using the specified image path
+              alt="Image representing the mental weight of OCD and the path to clarity"
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
+          </motion.div>
+        </section>
+
 
         {/* === 2. WHAT IS OCD & DIAGNOSIS SECTION === */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20 items-center">
@@ -99,7 +125,7 @@ export default function OCDTreatmentPage() {
               Michael Nwanna provides expert diagnosis, differentiating OCD from general anxiety, and crafts a treatment plan centered on **Exposure and Response Prevention (ERP)** combined with medication management when necessary.
             </p>
             
-            {/* Image Placeholder 1 */}
+            {/* Image Placeholder 1 - Retained but removed original filename comment */}
             <div className="w-full h-48 relative rounded-xl overflow-hidden mt-6 shadow-lg">
                 <Image
                     src="/ocd-cycle-illustration.jpg"
@@ -109,7 +135,6 @@ export default function OCDTreatmentPage() {
                     className="object-cover"
                 />
             </div>
-            {/* FILE NAME: ocd-cycle-illustration.jpg */}
             
           </motion.div>
 
@@ -121,8 +146,8 @@ export default function OCDTreatmentPage() {
             <ul className="space-y-6">
               {coreComponents.map((component, i) => (
                 <li key={i} className="flex flex-col gap-1">
-                  <span className="flex items-center gap-3 text-xl font-bold text-[#306EFF]"> {/* Highlight Blue */}
-                    <component.icon className="text-[#FFAA00] text-2xl flex-shrink-0" /> {/* Accent Orange */}
+                  <span className="flex items-center gap-3 text-xl font-bold" style={{ color: HIGHLIGHT_BLUE }}> {/* Highlight Blue */}
+                    <component.icon className="text-2xl flex-shrink-0" style={{ color: ACCENT_ORANGE }} /> {/* Accent Orange */}
                     {component.text}
                   </span>
                   <p className="text-base text-gray-700 ml-9">{component.description}</p>
@@ -167,7 +192,7 @@ export default function OCDTreatmentPage() {
             ))}
           </div>
           
-          {/* Image Placeholder 2 */}
+          {/* Image Placeholder 2 - Retained but removed original filename comment */}
           <div className="w-full h-72 relative rounded-xl overflow-hidden mt-12 shadow-2xl">
               <Image
                   src="/ocd-erp-success.jpg"
@@ -177,13 +202,13 @@ export default function OCDTreatmentPage() {
                   className="object-cover"
               />
           </div>
-          {/* FILE NAME: ocd-erp-success.jpg */}
         </div>
 
         {/* === 4. CLOSING CTA BLOCK === */}
         <motion.div 
           variants={fadeInUp}
           className="mt-20 bg-[#1B3C6A] p-8 md:p-12 rounded-[40px] text-white text-center shadow-2xl"
+          style={{ backgroundColor: HIGHLIGHT_BLUE }}
         >
           <h3 className="text-3xl md:text-4xl font-black mb-4 tracking-tight leading-tight">
             It is time to take back your time and peace.
@@ -194,7 +219,8 @@ export default function OCDTreatmentPage() {
           
           <Link 
             href="/appointments"
-            className="px-12 py-6 rounded-2xl font-black text-2xl text-white shadow-xl bg-[#FFAA00] transition transform hover:scale-[1.03] hover:shadow-2xl inline-flex items-center justify-center"
+            className="px-12 py-6 rounded-2xl font-black text-2xl text-white shadow-xl transition transform hover:scale-[1.03] hover:shadow-2xl inline-flex items-center justify-center"
+            style={{ backgroundColor: ACCENT_ORANGE }}
           >
             Begin Your Assessment
           </Link>

@@ -1,4 +1,5 @@
 import Hero from "./components/Hero";
+import Services from "./components/Services";
 import Conditions from "./components/Conditions";
 import Why from "./components/Why";
 import Clinician from "./components/Clinician";
@@ -16,6 +17,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Services />
       <Conditions />
       <Why />
       <Clinician />
