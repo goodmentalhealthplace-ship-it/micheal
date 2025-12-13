@@ -41,14 +41,25 @@ export default function Header() {
     };
   }, []);
 
-  // --- MENU DATA STRUCTURE (For cleaner rendering) ---
+  // --- MENU DATA STRUCTURE (Updated) ---
   const desktopNavItems = [
     { name: "Home", route: "/" },
+    // NEW SERVICES DROPDOWN ITEM
+    {
+      name: "Services",
+      menuName: "services",
+      subItems: [
+        { name: "Medication Management", route: "/medication" },
+        { name: "Psychiatry Evaluation", route: "/evaluation" },
+        { name: "Psychotherapy", route: "/therapy" },
+        { name: "Telepsychiatry", route: "/telepsychiatry" },
+      ],
+    },
     {
       name: "About",
       menuName: "about",
       subItems: [
-        { name: "Services", route: "/services" },
+        // Removed 'Services' from here
         { name: "Our Team", route: "/team" },
         { name: "FAQ", route: "/faq" },
       ],
@@ -74,7 +85,8 @@ export default function Header() {
   const isActive = (route) => router.pathname === route;
 
   return (
-    <header ref={headerRef} className="w-full bg-white shadow-lg sticky top-0 z-[9999]">
+    // Header is NON-STICKY
+    <header ref={headerRef} className="w-full bg-white shadow-lg z-[9999]"> 
       <div className="max-w-7xl mx-auto px-6 lg:px-16 py-4 flex items-center justify-between">
         {/* LOGO */}
         <button onClick={() => go("/")} className="flex items-center gap-2 focus:outline-none">
@@ -92,8 +104,8 @@ export default function Header() {
                   <button
                     onClick={() => toggleMenu(item.menuName)}
                     className={`flex items-center gap-1 transition focus:outline-none 
-                               ${BRAND_COLOR_HOVER} 
-                               ${openMenu === item.menuName ? BRAND_COLOR_TEXT : ''}`}
+                                    ${BRAND_COLOR_HOVER} 
+                                    ${openMenu === item.menuName ? BRAND_COLOR_TEXT : ''}`}
                   >
                     {item.name} <IoChevronDown className={`transition-transform duration-300 ${openMenu === item.menuName ? 'rotate-180' : ''}`} />
                   </button>
@@ -105,8 +117,8 @@ export default function Header() {
                           key={subItem.name} 
                           onClick={() => go(subItem.route)} 
                           className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 transition 
-                                     ${BRAND_COLOR_HOVER} 
-                                     ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ''}`}
+                                            ${BRAND_COLOR_HOVER} 
+                                            ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ''}`}
                         >
                           {subItem.name}
                         </button>
@@ -119,8 +131,8 @@ export default function Header() {
                 <button
                   onClick={() => go(item.route)}
                   className={`transition focus:outline-none 
-                             ${BRAND_COLOR_HOVER} 
-                             ${isActive(item.route) ? BRAND_COLOR_TEXT : ''}`}
+                                  ${BRAND_COLOR_HOVER} 
+                                  ${isActive(item.route) ? BRAND_COLOR_TEXT : ''}`}
                 >
                   {item.name}
                 </button>
@@ -140,7 +152,7 @@ export default function Header() {
 
       {/* MOBILE MENU */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white shadow-xl px-6 py-4 space-y-2 text-gray-700 font-semibold z-[9999] absolute w-full top-[100%] transition-all duration-300 ease-out animate-in fade-in slide-in-from-top-2">
+        <div className="lg:hidden bg-white shadow-xl px-6 py-4 space-y-2 text-gray-700 font-semibold z-[9999] absolute w-full top-full transition-all duration-300 ease-out animate-in fade-in slide-in-from-top-2">
           {desktopNavItems.map((item) => (
             <div key={`mobile-${item.name}`}>
               {item.subItems ? (
@@ -159,8 +171,8 @@ export default function Header() {
                           key={`mobile-${subItem.name}`} 
                           onClick={() => go(subItem.route)} 
                           className={`block w-full text-left py-1 text-sm text-gray-600 
-                                     ${BRAND_COLOR_HOVER}
-                                     ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ''}`}
+                                            ${BRAND_COLOR_HOVER}
+                                            ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ''}`}
                         >
                           {subItem.name}
                         </button>
@@ -173,7 +185,7 @@ export default function Header() {
                 <button
                   onClick={() => go(item.route)}
                   className={`block w-full text-left py-2 
-                             ${isActive(item.route) ? BRAND_COLOR_TEXT : ''}`}
+                                  ${isActive(item.route) ? BRAND_COLOR_TEXT : ''}`}
                 >
                   {item.name}
                 </button>

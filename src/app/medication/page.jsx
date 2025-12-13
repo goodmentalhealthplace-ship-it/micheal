@@ -18,19 +18,22 @@ const gettingStartedItems = [
     title: "Initial Evaluation",
     text: "Schedule your first comprehensive psychiatric evaluation to discuss your needs and medication options.",
     Icon: CalendarCheck, 
-    link: "/schedule-evaluation",
+    // Link updated to /appointments
+    link: "/appointments", 
   },
   {
     title: "Transfer Care",
     text: "Seamlessly transfer your existing medication records and continue your care with our specialists.",
     Icon: Repeat2, 
-    link: "/transfer-care",
+    // Link updated to /appointments
+    link: "/appointments", 
   },
   {
   title: "Book a Follow-up",
     text: "If you are a returning patient, easily book a new monitoring or follow-up appointment at your convenience.",
     Icon: UserPlus, 
-    link: "/book-appointment",
+    // Link updated to /appointments
+    link: "/appointments", 
   },
 ];
 
@@ -133,10 +136,10 @@ export default function MedicationManagementPage() {
         </div>
       </section>
 
-      {/* WHAT WE DO - UNCHANGED */}
+      {/* WHAT WE DO - HEADING CENTERED */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <motion.h2
-          className="text-3xl font-semibold"
+          className="text-3xl font-semibold text-center" // ADDED text-center
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -196,10 +199,10 @@ export default function MedicationManagementPage() {
         </div>
       </section>
 
-      {/* CONDITIONS WE TREAT - UNCHANGED */}
+      {/* CONDITIONS WE TREAT - HEADING CENTERED */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <motion.h2
-          className="text-3xl font-semibold mb-12"
+          className="text-3xl font-semibold mb-12 text-center" // ADDED text-center
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -279,7 +282,7 @@ export default function MedicationManagementPage() {
         </div>
       </section>
 
-      {/* WAYS TO GET STARTED - **WITH LUCIDE ICONS (KEPT)** */}
+      {/* WAYS TO GET STARTED - UNCHANGED */}
       <section className="bg-[#F0F9FF] py-20">
         <div className="max-w-7xl mx-auto px-6">
           <motion.h2
@@ -320,6 +323,7 @@ export default function MedicationManagementPage() {
                 <p className="text-center text-[#6B7280] mb-6">
                   {item.text}
                 </p>
+                {/* Link points to /appointments */}
                 <Link
                     href={item.link}
                     className="block w-full text-center bg-[#2FA36B] text-white px-6 py-3 rounded-xl font-medium hover:bg-opacity-90 transition shadow-md"
@@ -337,7 +341,7 @@ export default function MedicationManagementPage() {
       <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-start">
               
-              {/* LEFT SIDE: HOW TO BOOK APPOINTMENT CARD */}
+              {/* LEFT SIDE: HOW TO BOOK APPOINTMENT CARD (heading is intentionally left-aligned here) */}
               <motion.div
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -349,7 +353,6 @@ export default function MedicationManagementPage() {
                   </h2>
 
                   <div className="max-w-md mx-auto lg:mx-0 bg-[#EAF6F0] border border-[#E5E7EB] rounded-2xl p-8 text-center shadow-xl">
-                      {/* Using the original Image component */}
                       <Image
                           src="/appointment.png"
                           alt="Book an appointment"
@@ -374,7 +377,7 @@ export default function MedicationManagementPage() {
                   </div>
               </motion.div>
 
-              {/* RIGHT SIDE: WHY CHOOSE US ACCORDION (6 QUESTIONS) */}
+              {/* RIGHT SIDE: WHY CHOOSE US ACCORDION */}
               <motion.div
                   initial={{ opacity: 0, x: 30 }}
                   whileInView={{ opacity: 1, x: 0 }}
@@ -401,8 +404,6 @@ export default function MedicationManagementPage() {
           </div>
       </section>
 
-      {/* THE TRUST SECTION HAS BEEN REMOVED */}
-
       {/* FINAL CTA SECTION - UNCHANGED */}
       <section className="py-20 bg-[#EAF6F0] text-center">
           <motion.div
@@ -419,6 +420,7 @@ export default function MedicationManagementPage() {
               <p className="text-lg text-[#6B7280] mb-8">
                   Medication management is just one part of our holistic care model. Discover other ways we can support your well-being.
               </p>
+              {/* This link points to /services */}
               <Link
                   href="/services"
                   className="inline-block bg-[#2FA36B] text-white px-10 py-4 rounded-xl font-medium text-lg hover:bg-opacity-90 transition shadow-lg transform hover:scale-[1.02]"

@@ -56,14 +56,13 @@ export default function MichaelNwannaProfile() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
-        {/* --- 1. HEADER & PROFILE CARD --- */}
+        {/* 1. HEADER & PROFILE CARD */}
         <motion.div variants={fadeInUp} className="bg-[#F8F9FA] p-8 md:p-12 rounded-[40px] shadow-xl border-t-8 border-[#306EFF]">
           
           <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
             
             {/* Profile Image Column */}
             <div className="relative w-40 h-40 md:w-52 md:h-52 flex-shrink-0">
-              {/* IMPORTANT: Use Michael Nwanna's professional headshot here */}
               <Image
                 src="/clinician-michael-nwanna.jpg" 
                 alt={`Profile photo of ${profile.name}`}
@@ -91,8 +90,12 @@ export default function MichaelNwannaProfile() {
               </p>
 
               <div className="mt-6 flex flex-wrap gap-x-8 gap-y-3 text-sm font-bold text-gray-700">
-                <span className="flex items-center gap-2"><FaGraduationCap className="text-[#306EFF]" /> {profile.education}</span>
-                <span className="flex items-center gap-2"><FaBriefcase className="text-[#306EFF]" /> 20+ Years Nursing Experience</span>
+                <span className="flex items-center gap-2">
+                  <FaGraduationCap className="text-[#306EFF]" /> {profile.education}
+                </span>
+                <span className="flex items-center gap-2">
+                  <FaBriefcase className="text-[#306EFF]" /> 20+ Years Nursing Experience
+                </span>
               </div>
             </div>
             
@@ -108,10 +111,9 @@ export default function MichaelNwannaProfile() {
           </div>
         </motion.div>
 
-        {/* --- 2. DETAILED BIOGRAPHY & EXPERIENCE --- */}
+        {/* 2. DETAILED BIOGRAPHY & EXPERIENCE */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-16">
           
-          {/* Main Bio Content (2/3 width) */}
           <motion.div variants={fadeInUp} className="lg:col-span-2 space-y-8">
             <h3 className="text-3xl font-black text-[#1A1A1A] border-b pb-3 border-gray-100">
                 Comprehensive Psychiatric Services
@@ -122,7 +124,7 @@ export default function MichaelNwannaProfile() {
             </p>
             
             <p className="text-lg text-gray-700 leading-relaxed font-semibold">
-                I offer both **psychotherapy and psychiatric medication management**, creating individualized, evidence-based treatment plans that promote recovery, resilience, and long-term mental wellness. At GoodPlace Mental Health Services, I am dedicated to delivering culturally responsive, trauma-informed care that empowers patients to lead fulfilling and stable lives.
+                I offer both psychotherapy and psychiatric medication management, creating individualized, evidence-based treatment plans that promote recovery, resilience, and long-term mental wellness. At GoodPlace Mental Health Services, I am dedicated to delivering culturally responsive, trauma-informed care that empowers patients to lead fulfilling and stable lives.
             </p>
 
             <h3 className="text-3xl font-black text-[#1A1A1A] border-b pb-3 border-gray-100 pt-4">
@@ -130,19 +132,16 @@ export default function MichaelNwannaProfile() {
             </h3>
             
             <p className="text-lg text-gray-700 leading-relaxed">
-                In addition to my psychiatric role, I have worked as a Registered Nurse at major hospitals, delivering high-quality medical and post-surgical care across specialties including orthopedics, gastroenterology, urology, surgical oncology, and medical oncology. My responsibilities included maintaining timely communication with healthcare providers, ensuring safe medication administration, and advocating strongly for patient needs.
+                In addition to my psychiatric role, I have worked as a Registered Nurse at major hospitals, delivering high-quality medical and post-surgical care across specialties including orthopedics, gastroenterology, urology, surgical oncology, and medical oncology.
             </p>
             
             <p className="text-lg text-gray-700 leading-relaxed italic">
-                With over **20 years of experience as a bedside nurse** in diverse settings, including critical care, medical-surgical, and mental health, I have provided direct patient care in diverse clinical settings, including mental health, critical care, medical-surgical care, and home care. This extensive background has equipped me with a deep understanding of both the physical and psychological needs of patients, and it informs my holistic, integrated approach to psychiatric care.
+                With over 20 years of experience as a bedside nurse in diverse settings, including critical care, medical-surgical, and mental health, I have provided direct patient care across multiple environments. This background informs my holistic, integrated approach to psychiatric care.
             </p>
-
           </motion.div>
 
-          {/* Sidebar (1/3 width) */}
           <div className="lg:col-span-1 space-y-12">
             
-            {/* Services List */}
             <motion.div variants={fadeInUp} className="bg-[#F8F9FA] p-8 rounded-2xl shadow-md border-l-4 border-[#30A04C]">
               <h4 className="text-2xl font-black text-[#1A1A1A] mb-4">
                 Core Services
@@ -157,7 +156,6 @@ export default function MichaelNwannaProfile() {
               </ul>
             </motion.div>
 
-            {/* Conditions Treated */}
             <motion.div variants={fadeInUp} className="bg-[#F8F9FA] p-8 rounded-2xl shadow-md border-l-4 border-[#306EFF]">
               <h4 className="text-2xl font-black text-[#1A1A1A] mb-4">
                 Conditions Treated

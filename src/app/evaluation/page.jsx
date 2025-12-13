@@ -1,0 +1,431 @@
+"use client";
+
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+// Import Lucide icons 
+import { CalendarCheck, Repeat2, UserPlus, ChevronDown } from "lucide-react"; 
+import { useState } from "react"; 
+
+const slideUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0 },
+};
+
+// Data for the "Ways to Get Started" cards (Links remain /appointments)
+const gettingStartedItems = [
+  {
+    title: "Initial Evaluation",
+    text: "Schedule your first comprehensive psychiatric evaluation to discuss your needs and medication options.",
+    Icon: CalendarCheck, 
+    link: "/appointments", 
+  },
+  {
+    title: "Transfer Care",
+    text: "Seamlessly transfer your existing medication records and continue your care with our specialists.",
+    Icon: Repeat2, 
+    link: "/appointments", 
+  },
+  {
+  title: "Book a Follow-up",
+    text: "If you are a returning patient, easily book a new monitoring or follow-up appointment at your convenience.",
+    Icon: UserPlus, 
+    link: "/appointments", 
+  },
+];
+
+// Data for the FAQ section (focused on Evaluation)
+const evaluationFAQItems = [
+  {
+    question: "How long does the initial evaluation take?",
+    answer: "Initial evaluations are comprehensive sessions, typically lasting between 60 to 90 minutes to ensure adequate time for a thorough history, discussion of symptoms, and development of a collaborative treatment plan.",
+  },
+  {
+    question: "What information should I bring?",
+    answer: "It is helpful to bring a list of current and past medications, relevant medical history, and any previous psychiatric records or psychological testing results you may have.",
+  },
+  {
+    question: "Is the evaluation confidential?",
+    answer: "Yes, all evaluation sessions are strictly confidential and adhere to HIPAA guidelines, ensuring your privacy and trust.",
+  },
+  {
+    question: "Will I receive a diagnosis right away?",
+    answer: "In most cases, a preliminary diagnosis or formulation is made during the first session. However, complex cases may require additional sessions or external data review before finalizing the diagnosis and treatment plan.",
+  },
+  {
+    question: "Do I have to start medication after the evaluation?",
+    answer: "Absolutely not. The evaluation leads to a shared decision-making process. Medication is one option, but we will discuss therapy, lifestyle changes, and other non-pharmacological approaches based on your needs.",
+  },
+  {
+    question: "What happens after the initial evaluation?",
+    answer: "Following the evaluation, your provider will recommend a personalized treatment plan, which may include follow-up medication management appointments, referrals for therapy, or other specialized care.",
+  },
+];
+
+// Reusable Accordion Item Component
+const AccordionItem = ({ item, isOpen, onClick }) => (
+    <div className="border-b border-[#E5E7EB] last:border-b-0">
+        <button
+            className="flex justify-between items-center w-full py-4 text-left font-medium text-lg text-[#1A1A1A] hover:text-[#2FA36B] transition"
+            onClick={onClick}
+        >
+            {item.question}
+            <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#2FA36B]' : 'rotate-0'}`} />
+        </button>
+        {isOpen && (
+            <div className="pb-4 text-[#6B7280] leading-relaxed transition-all duration-300 ease-in-out">
+                {item.answer}
+            </div>
+        )}
+    </div>
+);
+
+
+export default function PsychiatricEvaluationPage() {
+    // State for the accordion 
+    const [openIndex, setOpenIndex] = useState(null);
+
+    const handleAccordionClick = (index) => {
+        setOpenIndex(openIndex === index ? null : index);
+    };
+
+  return (
+    <main className="bg-white text-[#1A1A1A]">
+      {/* HERO SECTION */}
+      <section className="relative bg-[#EAF6F0] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            variants={slideUp}
+          >
+            <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
+              Comprehensive Psychiatric Evaluation
+              <span className="block text-[#1F4FD8] mt-2">
+                Your First Step to Clarity and Care.
+              </span>
+            </h1>
+
+            <p className="mt-6 text-lg text-[#6B7280] max-w-xl">
+              Our initial evaluation is a foundational, in-depth session designed
+              to understand your unique history, symptoms, and needs, leading to a 
+              precise diagnosis and a personalized treatment strategy.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <Image
+              src="/evaluation.png" 
+              alt="Psychiatric evaluation and consultation"
+              width={520}
+              height={520}
+              className="rounded-2xl"
+              priority
+            />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* WHAT WE DO - IMAGE PATHS UPDATED */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <motion.h2
+          className="text-3xl font-semibold text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          variants={slideUp}
+        >
+          What the Evaluation Process Includes
+        </motion.h2>
+
+        <div className="mt-12 grid md:grid-cols-3 gap-8">
+          {[
+            {
+              title: "In-Depth History",
+              text: "A thorough review of your mental health, medical background, social history, and family dynamics to gather the full context of your concerns.",
+              image: "/evaluation1.png", // UPDATED IMAGE PATH
+            },
+            {
+              title: "Precise Diagnosis",
+              text: "Utilizing clinical expertise and established criteria to arrive at an accurate diagnostic understanding, essential for effective treatment planning.",
+              image: "/evaluation2.png", // UPDATED IMAGE PATH
+            },
+            {
+              title: "Collaborative Treatment Plan",
+              text: "Developing a clear, actionable plan that outlines recommended next steps, which may include medication, specific therapy, or lifestyle adjustments.",
+              image: "/evaluation3.png", // UPDATED IMAGE PATH
+            },
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              className="border border-[#E5E7EB] rounded-2xl overflow-hidden bg-white hover:shadow-xl transition"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              variants={slideUp}
+            >
+              {/* LARGE CARD IMAGE */}
+              <div className="relative w-full h-56">
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="p-6">
+                <h3 className="text-xl font-medium mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-[#6B7280] leading-relaxed">
+                  {item.text}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CONDITIONS WE TREAT - UNCHANGED */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <motion.h2
+          className="text-3xl font-semibold mb-12 text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          variants={slideUp}
+        >
+          Conditions We Treat
+        </motion.h2>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {[
+            {
+              title: "Anxiety Disorders",
+              image: "/condition-anxiety-hero.jpg",
+              description:
+                "Medication strategies to reduce persistent worry, panic, and physical tension while supporting emotional balance.",
+            },
+            {
+              title: "Depression",
+              image: "/depression.png",
+              description:
+                "Evidence based treatment plans focused on mood stability, energy, and improved daily functioning.",
+            },
+            {
+              title: "Bipolar Disorder",
+              image: "/bipolar.png",
+              description:
+                "Careful mood stabilization with close monitoring to support long term emotional regulation.",
+            },
+            {
+              title: "Schizophrenia",
+              image: "/schizophrenia.png",
+              description:
+                "Structured psychiatric care focused on symptom control, clarity, and functional improvement.",
+            },
+            {
+              title: "ADHD",
+              image: "/adhd.png",
+              description:
+                "Targeted medication options to support focus, impulse control, and executive functioning.",
+            },
+            {
+              title: "Post Traumatic Stress Disorder",
+              image: "/ptsd.png",
+              description:
+                "Thoughtful medication management to support nervous system regulation and symptom relief.",
+            },
+          ].map((condition, index) => (
+            <motion.div
+              key={index}
+              className="border border-[#E5E7EB] rounded-2xl overflow-hidden bg-white hover:shadow-xl transition"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.08 }}
+              variants={slideUp}
+            >
+              <div className="relative h-48 w-full">
+                <Image
+                  src={condition.image}
+                  alt={condition.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="p-6">
+                <h3 className="text-xl font-medium mb-3">
+                  {condition.title}
+                </h3>
+                <p className="text-[#6B7280] leading-relaxed">
+                  {condition.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* WAYS TO GET STARTED - UNCHANGED LINKS */}
+      <section className="bg-[#F0F9FF] py-20">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.h2
+            className="text-4xl font-extrabold text-center mb-16 text-[#1A1A1A]"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            variants={slideUp}
+          >
+            Your Path to Care
+          </motion.h2>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {gettingStartedItems.map((item, index) => (
+              <motion.div
+                key={index}
+                className="bg-white rounded-3xl p-8 border-2 border-transparent hover:border-[#2FA36B] shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.15 }}
+                variants={slideUp}
+              >
+                <div className="flex justify-center mb-6">
+                  {/* Using the imported Icon component */}
+                  <div className="bg-[#EAF6F0] p-4 rounded-full">
+                    <item.Icon 
+                        className="text-[#2FA36B]" 
+                        size={60} 
+                        strokeWidth={1.5} 
+                    />
+                  </div>
+                </div>
+                <h3 className="text-2xl font-semibold text-center mb-3 text-[#1A1A1A]">
+                  {item.title}
+                </h3>
+                <p className="text-center text-[#6B7280] mb-6">
+                  {item.text}
+                </p>
+                {/* Link points to /appointments */}
+                <Link
+                    href={item.link}
+                    className="block w-full text-center bg-[#2FA36B] text-white px-6 py-3 rounded-xl font-medium hover:bg-opacity-90 transition shadow-md"
+                >
+                    Start Here
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      {/* BOOK APPOINTMENT (LEFT) & EVALUATION FAQ (RIGHT ACCORDION) */}
+      <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-start">
+              
+              {/* LEFT SIDE: HOW TO BOOK APPOINTMENT CARD */}
+              <motion.div
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+              >
+                  <h2 className="text-3xl font-semibold mb-8 text-[#1A1A1A]">
+                      Ready to Begin? Book Your Evaluation
+                  </h2>
+
+                  <div className="max-w-md mx-auto lg:mx-0 bg-[#EAF6F0] border border-[#E5E7EB] rounded-2xl p-8 text-center shadow-xl">
+                      <Image
+                          src="/appointment.png"
+                          alt="Book an appointment"
+                          width={250}
+                          height={250}
+                          className="mx-auto mb-6"
+                      />
+                      
+                      <h3 className="text-2xl font-semibold mb-4 text-[#1A1A1A]">
+                          Schedule Your Session
+                      </h3>
+                      <p className="text-[#6B7280] mb-8 text-lg">
+                          Choose a time that works best for you and begin your journey to a clear treatment plan.
+                      </p>
+                      <Link
+                          href="/book-appointment"
+                          className="inline-block bg-[#1F4FD8] text-white px-8 py-4 rounded-xl font-medium text-lg hover:opacity-90 transition shadow-lg"
+                      >
+                          Schedule Now
+                      </Link>
+                  </div>
+              </motion.div>
+
+              {/* RIGHT SIDE: EVALUATION FAQ ACCORDION (6 QUESTIONS) */}
+              <motion.div
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6 }}
+                  className="mt-10 lg:mt-0"
+              >
+                  <h2 className="text-3xl font-semibold mb-8 text-[#1A1A1A]">
+                      Evaluation FAQs
+                  </h2>
+
+                  <div className="bg-white border border-[#E5E7EB] rounded-2xl p-6 shadow-lg">
+                      {evaluationFAQItems.map((item, index) => (
+                          <AccordionItem 
+                              key={index}
+                              item={item}
+                              isOpen={openIndex === index}
+                              onClick={() => handleAccordionClick(index)}
+                          />
+                      ))}
+                  </div>
+              </motion.div>
+
+          </div>
+      </section>
+
+      {/* FINAL CTA SECTION - UNCHANGED */}
+      <section className="py-20 bg-[#EAF6F0] text-center">
+          <motion.div
+              className="max-w-3xl mx-auto px-6"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              variants={slideUp}
+          >
+              <h2 className="text-4xl font-extrabold mb-4 text-[#1A1A1A]">
+                  Explore Comprehensive Mental Health Services
+              </h2>
+              <p className="text-lg text-[#6B7280] mb-8">
+                  Medication management is just one part of our holistic care model. Discover other ways we can support your well-being.
+              </p>
+              {/* This link points to /services */}
+              <Link
+                  href="/services"
+                  className="inline-block bg-[#2FA36B] text-white px-10 py-4 rounded-xl font-medium text-lg hover:bg-opacity-90 transition shadow-lg transform hover:scale-[1.02]"
+              >
+                  View Other Services
+              </Link>
+          </motion.div>
+      </section>
+
+    </main>
+  );
+}

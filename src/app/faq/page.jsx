@@ -89,6 +89,24 @@ export default function FAQPage() {
   return (
     <div className="w-full bg-white pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
+
+        {/* ----------------------------------------------------------- */}
+        {/* NEW: Hero Image Section (faq.png) */}
+        {/* ----------------------------------------------------------- */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeInUp}
+          viewport={{ once: true, amount: 0.3 }}
+          className="w-full h-80 overflow-hidden mb-16 rounded-[40px] shadow-2xl"
+        >
+          <img 
+            src="/faq.png" 
+            alt="Frequently Asked Questions Hero Banner"
+            // Tailwind classes to ensure the image covers the container nicely
+            className="w-full h-full object-cover object-center" 
+          />
+        </motion.div>
         
         {/* Header Section */}
         <motion.div
@@ -165,7 +183,7 @@ export default function FAQPage() {
                 Confirm your benefits instantly before booking your first session.
               </p>
               <Link
-                href="/insurance-check"
+                href="/insurances"
                 className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-bold text-lg text-white transition hover:opacity-90"
                 style={{ backgroundColor: BRAND_ACCENT }} // Button in Warm Orange
               >
