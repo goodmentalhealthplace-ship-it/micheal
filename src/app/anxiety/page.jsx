@@ -3,10 +3,9 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-// CORRECTED IMPORTS: Using only the most stable and basic Font Awesome exports to ensure no errors.
 import { 
   FaCalendarAlt, FaCheckCircle, FaExclamationTriangle, 
-  FaLeaf, FaBrain, FaBriefcase, FaHeart, FaClinicMedical 
+  FaBrain, FaClinicMedical 
 } from "react-icons/fa";
 
 export default function AnxietyPage() {
@@ -24,45 +23,58 @@ export default function AnxietyPage() {
     <div className="w-full bg-white pt-24 pb-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
-        {/* 1. CONDITION HERO & TAGLINE */}
-        <section className="relative w-full h-[50vh] flex items-center overflow-hidden rounded-[40px] shadow-2xl mb-16">
-          <Image 
-            src="/condition-anxiety-hero.jpg" 
-            alt="Image representing calm and overcoming anxiety"
-            layout="fill"
-            objectFit="cover"
-            priority
-            className="z-0"
-          />
-          {/* Overlay gradient using brand primary color */}
-          <div className="absolute inset-0 z-10" style={{ background: `linear-gradient(90deg, ${BRAND_PRIMARY}DD 30%, transparent 100%)` }} />
+        {/* ----------------------------------------------------------- */}
+        {/* 1. CONDITION HERO: LEFT TEXT / RIGHT IMAGE */}
+        {/* ----------------------------------------------------------- */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
           
+          {/* Left Column: Text & Tagline */}
           <motion.div
             initial="hidden"
             animate="visible"
             variants={fadeInUp}
-            className="relative z-20 text-white p-8 md:p-12 max-w-2xl"
+            className="lg:p-6" // Add padding on large screens
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-950 leading-tight mb-4 tracking-tight">
               Finding Freedom from <span style={{ color: BRAND_ACCENT }}>Anxiety Disorders</span>
             </h1>
-            <p className="text-lg md:text-xl font-medium">
+            <p className="text-xl text-gray-700 max-w-lg mb-8">
               You don't have to live under the constant shadow of worry. We offer professional, tailored treatment to help you regain peace and control.
             </p>
+            <div style={{ backgroundColor: BRAND_PRIMARY }} className="h-1.5 w-24 mt-4 rounded-full" />
+          </motion.div>
+
+          {/* Right Column: Standalone Image */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeInUp}
+            transition={{ delay: 0.15 }}
+            className="w-full h-80 lg:h-[400px] relative overflow-hidden rounded-[40px] shadow-2xl"
+          >
+            <Image 
+              src="/condition-anxiety-hero.jpg" 
+              alt="Image representing calm and overcoming anxiety"
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
           </motion.div>
         </section>
 
-        {/* 2. SYMPTOMS, TYPES, and IMPACT */}
+
+        {/* ----------------------------------------------------------- */}
+        {/* 2. SYMPTOMS, TYPES, and IMPACT (Borders Removed) */}
+        {/* ----------------------------------------------------------- */}
         <section className="grid grid-cols-1 lg:grid-cols-3 gap-12 py-10">
           
-          {/* Main Symptoms Column */}
+          {/* Main Symptoms Column - Neutral styling */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             variants={fadeInUp}
             viewport={{ once: true, amount: 0.3 }}
-            className="lg:col-span-2 space-y-8 p-6 md:p-10 rounded-[30px] bg-gray-50/70 border-t-8"
-            style={{ borderColor: BRAND_SECONDARY }}
+            className="lg:col-span-2 space-y-8 p-6 md:p-10 rounded-[30px] bg-gray-50/70 shadow-lg"
           >
             <h2 className="text-3xl md:text-4xl font-extrabold text-gray-950 mb-4 flex items-center gap-3">
               <FaExclamationTriangle size={30} style={{ color: BRAND_SECONDARY }} /> Common Symptoms & When to Seek Help
@@ -89,15 +101,14 @@ export default function AnxietyPage() {
             </div>
           </motion.div>
 
-          {/* Types Sidebar */}
+          {/* Types Sidebar - Neutral styling */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             variants={fadeInUp}
             transition={{ delay: 0.15 }}
             viewport={{ once: true, amount: 0.3 }}
-            className="bg-white p-8 rounded-[30px] shadow-xl border-l-4"
-            style={{ borderColor: BRAND_PRIMARY }}
+            className="bg-white p-8 rounded-[30px] shadow-xl border border-gray-200"
           >
             <h3 className="text-2xl font-extrabold text-gray-950 mb-4">Types We Treat</h3>
             <ul className="space-y-3 text-gray-700">
@@ -110,7 +121,9 @@ export default function AnxietyPage() {
           </motion.div>
         </section>
         
-        {/* 3. OUR TREATMENT APPROACH WITH VISUALS */}
+        {/* ----------------------------------------------------------- */}
+        {/* 3. OUR TREATMENT APPROACH WITH VISUALS (Images set to CONTAIN) */}
+        {/* ----------------------------------------------------------- */}
         <section className="py-16">
           <motion.h2
             initial="hidden"
@@ -131,17 +144,18 @@ export default function AnxietyPage() {
               variants={fadeInUp}
               transition={{ delay: 0.15 }}
               viewport={{ once: true, amount: 0.3 }}
-              className="bg-gray-50 rounded-[30px] overflow-hidden shadow-lg"
+              className="bg-gray-50 rounded-[30px] overflow-hidden shadow-lg border border-gray-200"
             >
-              <div className="relative h-64 w-full">
+              {/* Image container set to bg-white and objectFit="contain" */}
+              <div className="relative h-64 w-full bg-white">
                 <Image
-                  src="/treatment-cbt.jpg" // Image of thought clarity
+                  src="/treatment-cbt.jpg" 
                   alt="Cognitive Behavioral Therapy session"
                   layout="fill"
-                  objectFit="cover"
+                  objectFit="contain" 
                 />
               </div>
-              <div className="p-8 space-y-3 border-b-4" style={{ borderColor: BRAND_ACCENT }}>
+              <div className="p-8 space-y-3">
                 <h3 className="text-2xl font-extrabold flex items-center gap-3" style={{ color: BRAND_ACCENT }}>
                     <FaBrain size={24} /> Cognitive Behavioral Therapy (CBT)
                 </h3>
@@ -158,19 +172,19 @@ export default function AnxietyPage() {
               variants={fadeInUp}
               transition={{ delay: 0.3 }}
               viewport={{ once: true, amount: 0.3 }}
-              className="bg-gray-50 rounded-[30px] overflow-hidden shadow-lg"
+              className="bg-gray-50 rounded-[30px] overflow-hidden shadow-lg border border-gray-200"
             >
-              <div className="relative h-64 w-full">
+              {/* Image container set to bg-white and objectFit="contain" */}
+              <div className="relative h-64 w-full bg-white">
                 <Image
-                  src="/treatment-medication.jpg" // Image of balance or precision
+                  src="/treatment-medication.jpg" 
                   alt="Medication management tools"
                   layout="fill"
-                  objectFit="cover"
+                  objectFit="contain" 
                 />
               </div>
-              <div className="p-8 space-y-3 border-b-4" style={{ borderColor: BRAND_SECONDARY }}>
+              <div className="p-8 space-y-3">
                 <h3 className="text-2xl font-extrabold flex items-center gap-3" style={{ color: BRAND_SECONDARY }}>
-                    {/* FIXED: Replacing FaStethoscope with FaClinicMedical */}
                     <FaClinicMedical size={24} /> Medication Management 
                 </h3>
                 <p className="text-gray-700">
@@ -181,8 +195,10 @@ export default function AnxietyPage() {
           </div>
         </section>
 
-        {/* 4. FINAL CTA - Specific to Anxiety */}
-        <section className="w-full py-16 bg-white rounded-[40px] shadow-2xl border-2 border-dashed" style={{ borderColor: BRAND_ACCENT }}>
+        {/* ----------------------------------------------------------- */}
+        {/* 4. FINAL CTA - Specific to Anxiety (Neutral Border) */}
+        {/* ----------------------------------------------------------- */}
+        <section className="w-full py-16 bg-white rounded-[40px] shadow-2xl border-2 border-gray-200">
           <motion.div
             initial="hidden"
             whileInView="visible"

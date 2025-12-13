@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; // Added Image import
 import { motion } from 'framer-motion';
 import { 
   FaSun, 
@@ -14,10 +15,10 @@ import {
 import { MdOutlineLocalHospital } from 'react-icons/md';
 
 // --- BRAND COLOR CODES ---
-// Highlight Blue: #306EFF (Trust, Authority)
-// Accent Orange: #FFAA00 (Action, Focus)
-// Secondary Green: #30A04C (Wellness, Hope)
-// Dark Text: #1A1A1A
+const HIGHLIGHT_BLUE = "#306EFF"; // Trust, Authority
+const ACCENT_ORANGE = "#FFAA00"; // Action, Focus
+const SECONDARY_GREEN = "#30A04C"; // Wellness, Hope
+const DARK_TEXT = "#1A1A1A"; // Dark Text
 
 export default function DepressionTreatmentPage() {
 
@@ -33,19 +34,19 @@ export default function DepressionTreatmentPage() {
     { 
       title: "Psychotherapy (Talk Therapy)", 
       icon: FaBrain, 
-      color: "#30A04C", // Secondary Green
+      color: SECONDARY_GREEN, // Secondary Green
       description: "Utilizing evidence-based approaches like CBT and IPT to explore thought patterns and coping mechanisms."
     },
     { 
       title: "Psychiatric Medication Management", 
       icon: FaPills, 
-      color: "#306EFF", // Highlight Blue
+      color: HIGHLIGHT_BLUE, // Highlight Blue
       description: "Careful prescription and monitoring of antidepressants (SSRIs, SNRIs, etc.) tailored to your unique biology."
     },
     { 
       title: "Integrated Care Planning", 
       icon: MdOutlineLocalHospital, 
-      color: "#FFAA00", // Accent Orange
+      color: ACCENT_ORANGE, // Accent Orange
       description: "A holistic approach that considers lifestyle, nutrition, and coordinates with primary care physicians."
     },
   ];
@@ -68,30 +69,57 @@ export default function DepressionTreatmentPage() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
-        {/* === 1. HERO & VALIDATION BLOCK === */}
-        <motion.div variants={fadeInUp} className="bg-[#F8F9FA] p-8 md:p-16 rounded-[40px] shadow-xl border-t-8 border-[#306EFF] text-center">
+        {/* === 1. HERO: LEFT TEXT / RIGHT IMAGE (/depression.png) === */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
           
-          <h1 className="text-4xl md:text-6xl font-black text-[#1A1A1A] leading-tight mb-4">
-            Finding <span className="text-[#30A04C]">Clarity</span> Through Depression
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto mb-8">
-            Depression is a treatable medical condition, not a personal failing. You are not alone, and help is available. We offer expert, compassionate care to guide you toward stability and well-being.
-          </p>
-
-          <Link 
-            href="/appointments"
-            className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl bg-[#FFAA00] transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+          {/* Left Column: Text & CTA */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            className="lg:pr-10"
           >
-            <FaCalendarCheck /> Start Your Treatment Journey
-          </Link>
-        </motion.div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black" style={{ color: DARK_TEXT }}>
+              Finding <span style={{ color: SECONDARY_GREEN }}>Clarity</span> and Stability
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-700 max-w-lg mt-4 mb-8">
+              Depression is a treatable medical condition, not a personal failing. We offer expert, compassionate care to guide you toward stability and well-being.
+            </p>
+
+            <Link 
+              href="/appointments"
+              className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+              style={{ backgroundColor: ACCENT_ORANGE }}
+            >
+              <FaCalendarCheck /> Start Your Treatment Journey
+            </Link>
+          </motion.div>
+
+          {/* Right Column: Hero Image */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            transition={{ delay: 0.15 }}
+            className="w-full h-80 lg:h-[400px] relative overflow-hidden rounded-[40px] shadow-2xl"
+          >
+            <Image 
+              src="/depression.png" 
+              alt="Image representing hope, clarity, and treatment for depression"
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
+          </motion.div>
+        </section>
+
 
         {/* === 2. SYMPTOMS & UNDERSTANDING === */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20">
           
           <motion.div variants={fadeInUp} className="space-y-6">
-            <h2 className="text-3xl font-black text-[#1A1A1A] border-b pb-3 border-gray-100">
+            <h2 className="text-3xl font-black" style={{ color: DARK_TEXT, borderBottom: `3px solid ${HIGHLIGHT_BLUE}` }} className="pb-3">
               Understanding Major Depressive Disorder
             </h2>
             <p className="text-lg text-gray-700 leading-relaxed">
@@ -103,14 +131,14 @@ export default function DepressionTreatmentPage() {
           </motion.div>
 
           {/* Symptom Grid */}
-          <motion.div variants={fadeInUp} className="p-8 bg-[#F4F9FA] rounded-2xl shadow-md border-l-4 border-[#306EFF]">
-            <h3 className="text-2xl font-black text-[#1A1A1A] mb-6">
+          <motion.div variants={fadeInUp} className="p-8 bg-[#F4F9FA] rounded-2xl shadow-md border-l-4" style={{ borderColor: HIGHLIGHT_BLUE }}>
+            <h3 className="text-2xl font-black" style={{ color: DARK_TEXT, marginBottom: '1.5rem' }}>
               Common Signs We Treat
             </h3>
             <ul className="space-y-4">
               {commonSymptoms.map((symptom, i) => (
                 <li key={i} className="flex items-start gap-3 text-lg font-semibold text-gray-800">
-                  <symptom.icon className="text-[#306EFF] text-xl mt-1 flex-shrink-0" /> {/* Highlight Blue */}
+                  <symptom.icon className="text-xl mt-1 flex-shrink-0" style={{ color: HIGHLIGHT_BLUE }} /> {/* Highlight Blue */}
                   {symptom.text}
                 </li>
               ))}
@@ -121,13 +149,13 @@ export default function DepressionTreatmentPage() {
         {/* === 3. OUR TREATMENT APPROACH (3-Column) === */}
         <div className="mt-20">
           <motion.div variants={fadeInUp} className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-black text-[#1A1A1A] mb-4">
+            <h2 className="text-3xl md:text-4xl font-black" style={{ color: DARK_TEXT }}>
               Our Integrated Path to Recovery
             </h2>
             <p className="text-xl text-gray-600">
               Michael Nwanna utilizes a comprehensive, evidence-based approach tailored to your specific needs.
             </p>
-            <div className="h-1.5 w-24 bg-[#30A04C] mx-auto rounded-full mt-4" /> {/* Secondary Green */}
+            <div className="h-1.5 w-24 mx-auto rounded-full mt-4" style={{ backgroundColor: SECONDARY_GREEN }} /> 
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -142,7 +170,7 @@ export default function DepressionTreatmentPage() {
                   <option.icon size={32} />
                 </div>
                 
-                <h3 className="font-black text-gray-950 text-2xl mb-4 leading-tight">
+                <h3 className="font-black text-2xl mb-4 leading-tight" style={{ color: DARK_TEXT }}>
                   {option.title}
                 </h3>
                 
@@ -157,7 +185,8 @@ export default function DepressionTreatmentPage() {
         {/* === 4. CLOSING CTA BLOCK === */}
         <motion.div 
           variants={fadeInUp}
-          className="mt-20 bg-[#1B3C6A] p-8 md:p-12 rounded-[40px] text-white text-center shadow-2xl"
+          className="mt-20 p-8 md:p-12 rounded-[40px] text-white text-center shadow-2xl"
+          style={{ backgroundColor: HIGHLIGHT_BLUE }}
         >
           <h3 className="text-3xl md:text-4xl font-black mb-4 tracking-tight leading-tight">
             It is time to feel better.
@@ -168,7 +197,8 @@ export default function DepressionTreatmentPage() {
           
           <Link 
             href="/appointments"
-            className="px-12 py-6 rounded-2xl font-black text-2xl text-white shadow-xl bg-[#FFAA00] transition transform hover:scale-[1.03] hover:shadow-2xl inline-flex items-center justify-center"
+            className="px-12 py-6 rounded-2xl font-black text-2xl text-white shadow-xl transition transform hover:scale-[1.03] hover:shadow-2xl inline-flex items-center justify-center"
+            style={{ backgroundColor: ACCENT_ORANGE }}
           >
             Schedule Your Assessment
           </Link>
