@@ -8,29 +8,26 @@ import { IoChevronDown, IoMenu, IoClose } from "react-icons/io5";
 // Define the primary brand color for easy maintenance
 const BRAND_COLOR_HOVER = "hover:text-[#FFAA00]";
 const BRAND_COLOR_TEXT = "text-[#FFAA00]";
+const HEADER_HEIGHT_CLASS = "h-[70px]";
 
 export default function Header() {
   const router = useRouter();
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const headerRef = useRef(null); // Ref for handling outside clicks
+  const headerRef = useRef(null);
 
-  // Function to toggle desktop dropdown menus
   const toggleMenu = (menuName) => {
     setOpenMenu(openMenu === menuName ? null : menuName);
   };
 
-  // Function for navigation and closing menus
   const go = (route) => {
     router.push(route);
     setOpenMenu(null);
     setMobileOpen(false);
   };
 
-  // Effect to close desktop menus when clicking outside the header
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Close dropdown menus only if the click is outside the header
       if (headerRef.current && !headerRef.current.contains(event.target)) {
         setOpenMenu(null);
       }
@@ -41,10 +38,8 @@ export default function Header() {
     };
   }, []);
 
-  // --- MENU DATA STRUCTURE (Updated) ---
   const desktopNavItems = [
     { name: "Home", route: "/" },
-    // NEW SERVICES DROPDOWN ITEM
     {
       name: "Services",
       menuName: "services",
@@ -59,7 +54,6 @@ export default function Header() {
       name: "About",
       menuName: "about",
       subItems: [
-        // Removed 'Services' from here
         { name: "Our Team", route: "/team" },
         { name: "FAQ", route: "/faq" },
       ],
@@ -81,16 +75,18 @@ export default function Header() {
     { name: "Contact", route: "/contact" },
   ];
 
-  // Utility function for active link styling (optional but good practice)
   const isActive = (route) => router.pathname === route;
 
   return (
-    // Header is NON-STICKY
-    <header ref={headerRef} className="w-full bg-white shadow-lg z-[9999]"> 
-      <div className="max-w-7xl mx-auto px-6 lg:px-16 py-4 flex items-center justify-between">
+    // Sticky REMOVED here
+    <header
+      ref={headerRef}
+      className={`w-full bg-white shadow-lg z-[9999] ${HEADER_HEIGHT_CLASS}`}
+    >
+      <div className="max-w-7xl mx-auto px-6 lg:px-16 py-4 flex items-center justify-between h-full">
+        
         {/* LOGO */}
         <button onClick={() => go("/")} className="flex items-center gap-2 focus:outline-none">
-          {/* Note: Ensure /logo.png exists in your public folder */}
           <Image src="/logo.png" width={280} height={50} alt="Logo" priority />
         </button>
 
@@ -99,26 +95,30 @@ export default function Header() {
           {desktopNavItems.map((item) => (
             <React.Fragment key={item.name}>
               {item.subItems ? (
-                // Dropdown Item
-                <div className="relative group">
+                <div className="relative">
                   <button
                     onClick={() => toggleMenu(item.menuName)}
                     className={`flex items-center gap-1 transition focus:outline-none 
-                                    ${BRAND_COLOR_HOVER} 
-                                    ${openMenu === item.menuName ? BRAND_COLOR_TEXT : ''}`}
+                      ${BRAND_COLOR_HOVER} 
+                      ${openMenu === item.menuName ? BRAND_COLOR_TEXT : ""}`}
                   >
-                    {item.name} <IoChevronDown className={`transition-transform duration-300 ${openMenu === item.menuName ? 'rotate-180' : ''}`} />
+                    {item.name}
+                    <IoChevronDown
+                      className={`transition-transform duration-300 ${
+                        openMenu === item.menuName ? "rotate-180" : ""
+                      }`}
+                    />
                   </button>
 
                   {openMenu === item.menuName && (
-                    <div className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 bg-white z-[10000] shadow-2xl border border-gray-100 rounded-lg py-2 min-w-48 transition-all duration-300 ease-out animate-in fade-in slide-in-from-top-1">
+                    <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 bg-white z-[10000] shadow-2xl border border-gray-100 rounded-lg py-2 min-w-48">
                       {item.subItems.map((subItem) => (
-                        <button 
-                          key={subItem.name} 
-                          onClick={() => go(subItem.route)} 
-                          className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 transition 
-                                            ${BRAND_COLOR_HOVER} 
-                                            ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ''}`}
+                        <button
+                          key={subItem.name}
+                          onClick={() => go(subItem.route)}
+                          className={`block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-50 transition
+                            ${BRAND_COLOR_HOVER}
+                            ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ""}`}
                         >
                           {subItem.name}
                         </button>
@@ -127,12 +127,11 @@ export default function Header() {
                   )}
                 </div>
               ) : (
-                // Single Link Item
                 <button
                   onClick={() => go(item.route)}
-                  className={`transition focus:outline-none 
-                                  ${BRAND_COLOR_HOVER} 
-                                  ${isActive(item.route) ? BRAND_COLOR_TEXT : ''}`}
+                  className={`transition focus:outline-none
+                    ${BRAND_COLOR_HOVER}
+                    ${isActive(item.route) ? BRAND_COLOR_TEXT : ""}`}
                 >
                   {item.name}
                 </button>
@@ -152,27 +151,31 @@ export default function Header() {
 
       {/* MOBILE MENU */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white shadow-xl px-6 py-4 space-y-2 text-gray-700 font-semibold z-[9999] absolute w-full top-full transition-all duration-300 ease-out animate-in fade-in slide-in-from-top-2">
+        <div className="lg:hidden fixed inset-0 top-[70px] bg-white shadow-xl px-6 py-4 space-y-2 text-gray-700 font-semibold z-[9998] overflow-y-auto">
           {desktopNavItems.map((item) => (
             <div key={`mobile-${item.name}`}>
               {item.subItems ? (
-                // Mobile Dropdown
                 <>
                   <button
                     onClick={() => toggleMenu(item.menuName)}
-                    className="flex justify-between items-center w-full py-2"
+                    className="flex justify-between items-center w-full py-2 hover:bg-gray-50 rounded"
                   >
-                    {item.name} <IoChevronDown className={`transition-transform duration-300 ${openMenu === item.menuName ? 'rotate-180' : ''}`} />
+                    {item.name}
+                    <IoChevronDown
+                      className={`transition-transform duration-300 ${
+                        openMenu === item.menuName ? "rotate-180" : ""
+                      }`}
+                    />
                   </button>
                   {openMenu === item.menuName && (
                     <div className="pl-4 space-y-1 py-1 border-l-2 border-[#FFAA00]">
                       {item.subItems.map((subItem) => (
-                        <button 
-                          key={`mobile-${subItem.name}`} 
-                          onClick={() => go(subItem.route)} 
-                          className={`block w-full text-left py-1 text-sm text-gray-600 
-                                            ${BRAND_COLOR_HOVER}
-                                            ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ''}`}
+                        <button
+                          key={`mobile-${subItem.name}`}
+                          onClick={() => go(subItem.route)}
+                          className={`block w-full text-left py-1 text-sm text-gray-600 hover:bg-gray-50 rounded px-2
+                            ${BRAND_COLOR_HOVER}
+                            ${isActive(subItem.route) ? BRAND_COLOR_TEXT : ""}`}
                         >
                           {subItem.name}
                         </button>
@@ -181,11 +184,10 @@ export default function Header() {
                   )}
                 </>
               ) : (
-                // Mobile Single Link
                 <button
                   onClick={() => go(item.route)}
-                  className={`block w-full text-left py-2 
-                                  ${isActive(item.route) ? BRAND_COLOR_TEXT : ''}`}
+                  className={`block w-full text-left py-2 hover:bg-gray-50 rounded px-2
+                    ${isActive(item.route) ? BRAND_COLOR_TEXT : ""}`}
                 >
                   {item.name}
                 </button>
