@@ -10,9 +10,9 @@ import {
 
 export default function AnxietyPage() {
   // === BRAND COLORS (Confirmed) ===
-  const BRAND_PRIMARY = "#1A435A"; // Dark Blue/Teal
+  const BRAND_PRIMARY = "#4CAF50"; // Dark Blue/Teal
   const BRAND_SECONDARY = "#4CAF50"; // Bright Green
-  const BRAND_ACCENT = "#FF9800"; // Warm Orange
+  const BRAND_ACCENT = "#4CAF50"; // Warm Orange
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },

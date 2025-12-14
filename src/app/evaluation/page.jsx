@@ -103,7 +103,7 @@ export default function PsychiatricEvaluationPage() {
           >
             <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
               Comprehensive Psychiatric Evaluation
-              <span className="block text-[#1F4FD8] mt-2">
+              <span className="block text-[#4CAF50] mt-2">
                 Your First Step to Clarity and Care.
               </span>
             </h1>
@@ -366,7 +366,7 @@ export default function PsychiatricEvaluationPage() {
                       </p>
                       <Link
                           href="/book-appointment"
-                          className="inline-block bg-[#1F4FD8] text-white px-8 py-4 rounded-xl font-medium text-lg hover:opacity-90 transition shadow-lg"
+                          className="inline-block bg-[#4caf50] text-white px-8 py-4 rounded-xl font-medium text-lg hover:opacity-90 transition shadow-lg"
                       >
                           Schedule Now
                       </Link>

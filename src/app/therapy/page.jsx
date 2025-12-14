@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-// Import Lucide icons 
-import { CalendarCheck, Repeat2, UserPlus, ChevronDown } from "lucide-react"; 
-import { useState } from "react"; 
+// Import Lucide icons
+import { CalendarCheck, Repeat2, UserPlus, ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 const slideUp = {
   hidden: { opacity: 0, y: 40 },
@@ -17,20 +17,20 @@ const gettingStartedItems = [
   {
     title: "Initial Evaluation",
     text: "Schedule your first comprehensive psychiatric evaluation to discuss your needs and medication options.",
-    Icon: CalendarCheck, 
-    link: "/appointments", 
+    Icon: CalendarCheck,
+    link: "/appointments",
   },
   {
     title: "Transfer Care",
     text: "Seamlessly transfer your existing medication records and continue your care with our specialists.",
-    Icon: Repeat2, 
-    link: "/appointments", 
+    Icon: Repeat2,
+    link: "/appointments",
   },
   {
-  title: "Book a Follow-up",
+    title: "Book a Follow-up",
     text: "If you are a returning patient, easily book a new monitoring or follow-up appointment at your convenience.",
-    Icon: UserPlus, 
-    link: "/appointments", 
+    Icon: UserPlus,
+    link: "/appointments",
   },
 ];
 
@@ -82,7 +82,7 @@ const AccordionItem = ({ item, isOpen, onClick }) => (
 
 
 export default function PsychotherapyPage() {
-    // State for the accordion 
+    // State for the accordion
     const [openIndex, setOpenIndex] = useState(null);
 
     const handleAccordionClick = (index) => {
@@ -306,10 +306,10 @@ export default function PsychotherapyPage() {
                 <div className="flex justify-center mb-6">
                   {/* Using the imported Icon component */}
                   <div className="bg-[#EAF6F0] p-4 rounded-full">
-                    <item.Icon 
-                        className="text-[#2FA36B]" 
-                        size={60} 
-                        strokeWidth={1.5} 
+                    <item.Icon
+                      className="text-[#2FA36B]"
+                      size={60}
+                      strokeWidth={1.5}
                     />
                   </div>
                 </div>
@@ -336,7 +336,7 @@ export default function PsychotherapyPage() {
       {/* BOOK APPOINTMENT (LEFT) & PSYCHOTHERAPY FAQ (RIGHT ACCORDION) */}
       <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-start">
-              
+
               {/* LEFT SIDE: HOW TO BOOK APPOINTMENT CARD */}
               <motion.div
                   initial={{ opacity: 0, x: -30 }}
@@ -356,7 +356,7 @@ export default function PsychotherapyPage() {
                           height={250}
                           className="mx-auto mb-6"
                       />
-                      
+
                       <h3 className="text-2xl font-semibold mb-4 text-[#1A1A1A]">
                           Schedule Your Session
                       </h3>
@@ -365,7 +365,8 @@ export default function PsychotherapyPage() {
                       </p>
                       <Link
                           href="/book-appointment"
-                          className="inline-block bg-[#1F4FD8] text-white px-8 py-4 rounded-xl font-medium text-lg hover:opacity-90 transition shadow-lg"
+                          // CHANGED: Replaced bg-[#1F4FD8] with bg-[#4caf50]
+                          className="inline-block bg-[#4caf50] text-white px-8 py-4 rounded-xl font-medium text-lg hover:opacity-90 transition shadow-lg"
                       >
                           Schedule Now
                       </Link>
@@ -386,7 +387,7 @@ export default function PsychotherapyPage() {
 
                   <div className="bg-white border border-[#E5E7EB] rounded-2xl p-6 shadow-lg">
                       {psychotherapyFAQItems.map((item, index) => (
-                          <AccordionItem 
+                          <AccordionItem
                               key={index}
                               item={item}
                               isOpen={openIndex === index}

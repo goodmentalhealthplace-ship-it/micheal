@@ -370,7 +370,7 @@ export default function MedicationManagementPage() {
                       </p>
                       <Link
                           href="/book-appointment"
-                          className="inline-block bg-[#1F4FD8] text-white px-8 py-4 rounded-xl font-medium text-lg hover:opacity-90 transition shadow-lg"
+                          className="inline-block bg-[#4CAF50] text-white px-8 py-4 rounded-xl font-medium text-lg hover:opacity-90 transition shadow-lg"
                       >
                           Schedule Now
                       </Link>

@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image'; // New import for the hero image
 import { motion } from 'framer-motion';
 import { 
   FaMapMarkerAlt, 
@@ -8,14 +9,15 @@ import {
   FaEnvelope, 
   FaCalendarCheck,
   FaClock,
-  FaCommentDots // Added FaCommentDots for the header tag
+  FaCommentDots, 
+  FaArrowRight // Added for CTA clarity
 } from 'react-icons/fa';
 
 // --- BRAND COLOR CODES ---
-// Highlight Blue: #306EFF (Trust, Authority)
-// Accent Orange: #FFAA00 (Action, Focus)
-// Secondary Green: #30A04C (Wellness, Hope)
-// Dark Text: #1A1A1A
+const HIGHLIGHT_BLUE = "#4CAF50"; // Trust, Authority (Used for secondary elements, formerly a distinct blue)
+const ACCENT_ORANGE = "#4CAF50"; // Action, Focus (Primary CTA color)
+const SECONDARY_GREEN = "#30A04C"; // Wellness, Hope (Used for titles/emphasis)
+const DARK_TEXT = "#1A1A1A"; // Dark Text
 
 export default function ContactUsPage() {
 
@@ -25,21 +27,21 @@ export default function ContactUsPage() {
       icon: FaEnvelope, 
       detail: "support@goodmentalhealthplace.com", 
       link: "mailto:support@goodmentalhealthplace.com",
-      color: "#306EFF"
+      color: HIGHLIGHT_BLUE
     },
     { 
       title: "Call Us Directly", 
       icon: FaPhone, 
       detail: "(800) 555-1234", 
       link: "tel:8005551234",
-      color: "#FFAA00"
+      color: ACCENT_ORANGE
     },
     { 
       title: "Mailing Address", 
       icon: FaMapMarkerAlt, 
       detail: "123 Wellness Ave, Suite 100, Anytown, USA 12345", 
       link: "#",
-      color: "#30A04C"
+      color: SECONDARY_GREEN
     },
   ];
 
@@ -83,21 +85,57 @@ export default function ContactUsPage() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
-        {/* === 1. HERO HEADER & INTRODUCTION === */}
-        <motion.div variants={fadeInUp} className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 text-sm font-bold text-[#306EFF] bg-white px-3 py-1 rounded-full border border-[#D0E0FF] mb-4">
-             <FaCommentDots /> CONNECT WITH OUR TEAM
-          </div>
-          <h1 className="text-4xl md:text-6xl font-black text-[#1A1A1A] leading-tight mb-4">
-            We Are Here to <span className="text-[#FFAA00]">Listen</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto">
-            Whether you have a question about services, insurance, or need to schedule an appointment, please reach out. We respond to all inquiries promptly and confidentially.
-          </p>
-        </motion.div>
+        {/* === 1. HERO: LEFT TEXT / RIGHT IMAGE (/contact-hero.png) === */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
+          
+          {/* Left Column: Text & CTA */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            className="lg:pr-10"
+          >
+            <div className="inline-flex items-center gap-2 text-sm font-bold text-[#306EFF] bg-white px-3 py-1 rounded-full border border-[#D0E0FF] mb-4">
+                <FaCommentDots /> CONNECT WITH OUR TEAM
+            </div>
+            
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black" style={{ color: DARK_TEXT }}>
+              We Are Here to <span style={{ color: ACCENT_ORANGE }}>Listen</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-700 max-w-lg mt-4 mb-8">
+              Whether you have a question about services, insurance, or need to schedule an appointment, please reach out. We respond to all inquiries promptly and confidentially.
+            </p>
 
+            <Link 
+              href="#contact-form" // Scroll to the form below
+              className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+              style={{ backgroundColor: ACCENT_ORANGE }}
+            >
+              <FaArrowRight /> Go to Secure Contact Form
+            </Link>
+          </motion.div>
+
+          {/* Right Column: Hero Image (Placeholder for contact/support) */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            transition={{ delay: 0.15 }}
+            className="w-full h-80 lg:h-[400px] relative overflow-hidden rounded-[40px] shadow-2xl"
+          >
+            <Image 
+              src="/contact-hero.png" // Using a placeholder image file name
+              alt="Image representing customer service, communication, and support"
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
+          </motion.div>
+        </section>
+        
         {/* === 2. CONTACT FORM (IFRAME) BLOCK === */}
-        <motion.div variants={fadeInUp} className="mb-20">
+        <motion.div variants={fadeInUp} className="mb-20" id="contact-form">
             <h2 className="text-3xl font-black text-[#1A1A1A] text-center mb-6">
                 Send Us a Secure Message
             </h2>
@@ -112,7 +150,7 @@ export default function ContactUsPage() {
             </p>
         </motion.div>
 
-        {/* === 3. ALTERNATIVE CONTACT & HOURS GRID === */}
+        {/* === 3. ALTERNATIVE CONTACT & HOURS GRID (Content remains the same) === */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-12">
             
             {/* Contact Methods */}

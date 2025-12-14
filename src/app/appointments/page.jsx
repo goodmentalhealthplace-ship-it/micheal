@@ -14,10 +14,10 @@ import {
 } from 'react-icons/fa';
 
 // --- BRAND COLOR CODES ---
-// Highlight Blue: #306EFF (Trust, Authority)
-// Accent Orange: #FFAA00 (Action, Focus)
-// Secondary Green: #30A04C (Wellness, Hope)
-// Dark Text: #1A1A1A
+const HIGHLIGHT_BLUE = "#4CAF50"; // Trust, Authority
+const ACCENT_ORANGE = "#4CAF50"; // Action, Focus (Primary CTA color)
+const SECONDARY_GREEN = "#30A04C"; // Wellness, Hope (Titles/Emphasis)
+const DARK_TEXT = "#1A1A1A"; // Dark Text
 
 export default function AppointmentBookingPage() {
 
@@ -72,36 +72,53 @@ export default function AppointmentBookingPage() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
-        {/* === 1. HERO HEADER & PRIMARY CTA (The future booking portal) === */}
-        <motion.div variants={fadeInUp} className="bg-[#F4F9FF] p-8 md:p-16 rounded-[40px] shadow-xl border-t-8 border-[#FFAA00] text-center">
+        {/* === 1. HERO: LEFT TEXT / RIGHT IMAGE (/appointment-hero.png) === */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
           
-          <div className="inline-flex items-center gap-2 text-sm font-bold text-[#FFAA00] bg-white px-3 py-1 rounded-full border border-[#FFE6B8] mb-4">
-             <FaCalendarCheck /> START YOUR JOURNEY
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-black text-[#1A1A1A] leading-tight mb-4">
-            Book Your Secure <span className="text-[#306EFF]">Online Appointment</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto mb-10">
-            Confidential psychiatric care is just a few clicks away. Follow the simple steps below to begin your consultation process.
-          </p>
-
-          {/* This is the key placeholder button for future integration */}
-          <Link 
-            href="#" // The link will be updated when the real booking system is ready
-            className="inline-flex items-center gap-3 px-10 py-5 rounded-2xl font-black text-2xl text-white shadow-xl bg-[#FFAA00] transition transform hover:-translate-y-1 hover:shadow-2xl hover:bg-[#E89900]"
-            onClick={(e) => e.preventDefault()} // Prevent action since it's a placeholder
+          {/* Left Column: Text & CTA */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            className="lg:pr-10"
           >
-            Access Our Booking Portal (Coming Soon) <FaArrowRight />
-          </Link>
-          
-          <p className="mt-4 text-lg text-gray-600 font-semibold">
-              *Integration coming soon. Please follow the steps below in the interim.
-          </p>
-        </motion.div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black" style={{ color: DARK_TEXT }}>
+              Book Your Secure <span style={{ color: SECONDARY_GREEN }}>Online Appointment</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-700 max-w-lg mt-4 mb-8">
+              Confidential psychiatric care is just a few clicks away. Start your smooth, stress-free journey to wellness today.
+            </p>
 
-        {/* === 2. BOOKING STEP GUIDE === */}
+            <Link 
+              href="#" // Placeholder link to be updated
+              className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+              style={{ backgroundColor: ACCENT_ORANGE }}
+              onClick={(e) => e.preventDefault()}
+            >
+              <FaCalendarCheck /> Access Booking Portal
+            </Link>
+          </motion.div>
+
+          {/* Right Column: Hero Image (Updated to a placeholder for booking) */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            transition={{ delay: 0.15 }}
+            className="w-full h-80 lg:h-[400px] relative overflow-hidden rounded-[40px] shadow-2xl"
+          >
+            <Image 
+              src="/appointment-hero.png" // Using a new, descriptive placeholder image file name
+              alt="Illustration of secure online appointment scheduling or a virtual consultation."
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
+          </motion.div>
+        </section>
+        
+        {/* === 2. BOOKING STEP GUIDE (Content remains the same) === */}
         <motion.div variants={fadeInUp} className="mt-20">
             <h2 className="text-3xl md:text-4xl font-black text-[#1A1A1A] text-center mb-12">
                 Your Simple 4-Step Process
@@ -114,7 +131,8 @@ export default function AppointmentBookingPage() {
                         custom={i}
                         variants={stepItem}
                         className="p-6 md:p-8 bg-[#F8F9FA] rounded-3xl shadow-lg border-t-4 transition hover:shadow-xl"
-                        style={{ borderColor: i === 3 ? '#306EFF' : '#30A04C' }} // Final step blue, others green
+                        // Using colors from the original AppointmentBookingPage for consistency here
+                        style={{ borderColor: i === 3 ? '#306EFF' : '#30A04C' }} 
                     >
                         <div className="flex items-center gap-4 mb-4">
                             <div className="w-10 h-10 flex items-center justify-center rounded-full text-xl font-black text-white bg-[#1B3C6A]">
@@ -132,7 +150,7 @@ export default function AppointmentBookingPage() {
             </div>
         </motion.div>
 
-        {/* === 3. INFORMATION & CONTACT BOXES === */}
+        {/* === 3. INFORMATION & CONTACT BOXES (Content remains the same) === */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20 items-start">
           
           {/* Column A: Need Help? (Contact Information) */}
@@ -169,10 +187,9 @@ export default function AppointmentBookingPage() {
                     alt="Illustration of a person using a laptop for a video therapy session in a confidential home setting."
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover" // object-cover is appropriate here for a realistic scene
+                    className="object-cover"
                 />
             </div>
-            {/* FILE NAME: telehealth-confidentiality.jpg */}
             
             <p className="text-base text-gray-700 leading-relaxed">
               All appointments are conducted via a **HIPAA-compliant, secure video platform**. You will receive a unique link for your appointment 24 hours prior. Ensure you have a stable internet connection and a private space.
@@ -180,7 +197,7 @@ export default function AppointmentBookingPage() {
           </motion.div>
         </div>
 
-        {/* === 4. FINAL REASSURANCE CTA === */}
+        {/* === 4. FINAL REASSURANCE CTA (Content remains the same) === */}
         <motion.div 
           variants={fadeInUp}
           className="mt-20 bg-[#1B3C6A] p-8 md:p-12 rounded-[40px] text-white text-center shadow-2xl"
@@ -193,7 +210,7 @@ export default function AppointmentBookingPage() {
           </p>
           
           <Link 
-            href="#" // The link will be updated when the real booking system is ready
+            href="#" 
             className="px-12 py-6 rounded-2xl font-black text-2xl text-white shadow-xl bg-[#306EFF] transition transform hover:scale-[1.03] hover:shadow-2xl inline-flex items-center justify-center hover:bg-[#205EFF]"
             onClick={(e) => e.preventDefault()}
           >

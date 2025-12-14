@@ -1,8 +1,11 @@
 "use client";
+// 1. EXTERNAL LIBRARIES & HOOKS
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+
+// 2. ICON IMPORTS
 import { 
   FaCalendarCheck, 
   FaHandshake, 
@@ -12,51 +15,56 @@ import {
 } from 'react-icons/fa';
 
 // --- BRAND COLOR CODES ---
-// Highlight Blue: #306EFF (Trust, Authority)
-// Accent Orange: #FFAA00 (Action, Focus)
-// Secondary Green: #30A04C (Wellness, Hope)
-// Dark Text: #1A1A1A
+const HIGHLIGHT_BLUE = "#4CAF50"; // Trust, Authority 
+const ACCENT_ORANGE = "#4CAF50"; // Action, Focus (Primary CTA)
+const SECONDARY_GREEN = "#30A04C"; // Wellness, Hope (Titles/Emphasis)
+const DARK_TEXT = "#1A1A1A"; // Dark Text
 
+// --- DATA ARRAYS ---
+const insuranceLogos = [
+  { src: "/insurances1.jpeg", alt: "Insurance Provider 1" },
+  { src: "/insurances2.jpeg", alt: "Insurance Provider 2" },
+  { src: "/insurances3.jpeg", alt: "Insurance Provider 3" },
+  { src: "/insurances4.jpeg", alt: "Insurance Provider 4" },
+  { src: "/insurances5.jpeg", alt: "Insurance Provider 5" },
+  { src: "/insurances6.jpeg", alt: "Insurance Provider 6" },
+  { src: "/insurances7.jpeg", alt: "Insurance Provider 7" },
+  { src: "/insurances8.jpeg", alt: "Insurance Provider 8" },
+];
+ 
+// --- ANIMATION VARIANTS ---
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const staggerContainer = {
+  animate: { transition: { staggerChildren: 0.1 } }
+};
+ 
+const logoItem = {
+  initial: { opacity: 0, scale: 0.8 },
+  animate: { 
+    opacity: 1, 
+    scale: 1, 
+    transition: { 
+      type: "spring", 
+      stiffness: 100,
+      duration: 0.4
+    } 
+  },
+  hover: { 
+    scale: 1.05, 
+    boxShadow: "0 10px 20px rgba(48, 110, 255, 0.2)",
+    transition: { duration: 0.3 }
+  }
+};
+
+
+// ---------------------------------------------------------------------
+// --- MAIN COMPONENT ---
+// ---------------------------------------------------------------------
 export default function InsuranceCoveragePage() {
-
-  const insuranceLogos = [
-    { src: "/insurances1.png", alt: "Insurance Provider 1" },
-    { src: "/insurances2.png", alt: "Insurance Provider 2" },
-    { src: "/insurances3.png", alt: "Insurance Provider 3" },
-    { src: "/insurances4.png", alt: "Insurance Provider 4" },
-    { src: "/insurances5.png", alt: "Insurance Provider 5" },
-    { src: "/insurances6.png", alt: "Insurance Provider 6" },
-    { src: "/insurances7.png", alt: "Insurance Provider 7" },
-    { src: "/insurances8.png", alt: "Insurance Provider 8" },
-  ];
-  
-  // --- ANIMATION VARIANTS ---
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
-    animate: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-  };
-
-  const staggerContainer = {
-    animate: { transition: { staggerChildren: 0.1 } }
-  };
-  
-  const logoItem = {
-    initial: { opacity: 0, scale: 0.8 },
-    animate: { 
-      opacity: 1, 
-      scale: 1, 
-      transition: { 
-        type: "spring", 
-        stiffness: 100,
-        duration: 0.4
-      } 
-    },
-    hover: { 
-      scale: 1.05, 
-      boxShadow: "0 10px 20px rgba(48, 110, 255, 0.2)",
-      transition: { duration: 0.3 }
-    }
-  };
 
   return (
     <motion.div 
@@ -67,29 +75,51 @@ export default function InsuranceCoveragePage() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
         
-        {/* === 1. HERO HEADER & CTA === */}
-        <motion.div variants={fadeInUp} className="bg-[#F4F9FF] p-8 md:p-16 rounded-[40px] shadow-xl border-t-8 border-[#306EFF] text-center">
+        {/* === 1. HERO: LEFT TEXT / RIGHT IMAGE (/insurance.png) === */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
           
-          <div className="inline-flex items-center gap-2 text-sm font-bold text-[#306EFF] bg-white px-3 py-1 rounded-full border border-[#D0E0FF] mb-4">
-             <FaHandshake /> COVERAGE & FINANCIAL PEACE OF MIND
-          </div>
-
-          <h1 className="text-4xl md:text-6xl font-black text-[#1A1A1A] leading-tight mb-4">
-            We Accept Major <span className="text-[#306EFF]">Insurance Plans</span>
-          </h1>
-          
-          <p className="text-xl md:text-2xl text-gray-700 max-w-4xl mx-auto mb-8">
-            Access expert psychiatric care without financial burden. We work with a wide range of providers to make your mental health a priority.
-          </p>
-
-          <Link 
-            href="/appointments"
-            className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl bg-[#FFAA00] transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+          {/* Left Column: Text & CTA */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            className="lg:pr-10"
           >
-            <FaCalendarCheck /> Book Your Consultation Now
-          </Link>
-        </motion.div>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black" style={{ color: DARK_TEXT }}>
+              Stress-Free <span style={{ color: SECONDARY_GREEN }}>Insurance</span> Coverage
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-700 max-w-lg mt-4 mb-8">
+              Access expert, compassionate psychiatric care with the financial peace of mind you deserve. We are in-network with many major providers.
+            </p>
 
+            <Link 
+              href="/appointments"
+              className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl transition transform hover:-translate-y-0.5 hover:shadow-2xl"
+              style={{ backgroundColor: ACCENT_ORANGE }}
+            >
+              <FaCalendarCheck /> Verify Your Benefits Now
+            </Link>
+          </motion.div>
+
+          {/* Right Column: Hero Image */}
+          <motion.div
+            initial="initial"
+            animate="animate"
+            variants={fadeInUp}
+            transition={{ delay: 0.15 }}
+            className="w-full h-80 lg:h-[400px] relative overflow-hidden rounded-[40px] shadow-2xl"
+          >
+            <Image 
+              src="/insurance.png" 
+              alt="Image representing insurance, coverage, and financial support"
+              layout="fill"
+              objectFit="cover"
+              priority
+            />
+          </motion.div>
+        </section>
+        
         {/* === 2. INSURANCE LOGO GRID === */}
         <motion.div variants={fadeInUp} className="mt-20">
             <h2 className="text-3xl md:text-4xl font-black text-[#1A1A1A] text-center mb-12">
@@ -105,9 +135,6 @@ export default function InsuranceCoveragePage() {
                         whileHover="hover"
                         className="p-6 bg-white rounded-2xl shadow-md border border-gray-100 flex items-center justify-center h-24 sm:h-32"
                     >
-                        {/* IMPORTANT: Ensure Image size is large enough (e.g., 200x80) 
-                            The 'object-contain' class ensures the full logo is visible without cropping.
-                        */}
                         <Image
                             src={logo.src}
                             alt={logo.alt}
@@ -120,7 +147,7 @@ export default function InsuranceCoveragePage() {
             </div>
         </motion.div>
 
-        {/* === 3. Verification & Clarity Section === */}
+        {/* === 3. Verification & Clarity Section (2 Columns) === */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-20 items-start">
           
           {/* Column A: How to Verify */}

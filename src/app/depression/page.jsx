@@ -15,8 +15,8 @@ import {
 import { MdOutlineLocalHospital } from 'react-icons/md';
 
 // --- BRAND COLOR CODES ---
-const HIGHLIGHT_BLUE = "#306EFF"; // Trust, Authority
-const ACCENT_ORANGE = "#FFAA00"; // Action, Focus
+const HIGHLIGHT_BLUE = "#4CAF50"; // Trust, Authority
+const ACCENT_ORANGE = "#4CAF50"; // Action, Focus
 const SECONDARY_GREEN = "#30A04C"; // Wellness, Hope
 const DARK_TEXT = "#1A1A1A"; // Dark Text
 
