@@ -8,7 +8,6 @@ const client = createClient({
 async function getPosts() {
   const res = await client.getEntries({
     content_type: "blogPost",
-    order: "-fields.publishDate",
   });
 
   return res.items;
@@ -21,10 +20,12 @@ export default async function BlogPage() {
     <main style={{ padding: "40px" }}>
       <h1>Blog</h1>
 
+      {posts.length === 0 && <p>No posts found.</p>}
+
       {posts.map((post) => (
         <article key={post.sys.id} style={{ marginBottom: "30px" }}>
           <h2>{post.fields.title}</h2>
-          <p>{post.fields.publishDate}</p>
+          <div>{post.fields.body?.content?.[0]?.content?.[0]?.value}</div>
         </article>
       ))}
     </main>
