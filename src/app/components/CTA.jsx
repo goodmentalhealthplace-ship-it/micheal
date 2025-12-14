@@ -76,7 +76,7 @@ export default function TrustCTASection() {
             >
               <Link
                 href="/appointments"
-                className="inline-flex items-center justify-center px-10 py-5 rounded-2xl font-black text-lg md:text-xl text-white bg-[#4CAF50] shadow-xl transition transform hover:scale-[1.03] hover:shadow-2xl"
+                className="inline-flex items-center justify-center px-10 py-5 rounded-2xl font-black text-lg md:text-xl text-white bg-[#4CAF59] shadow-xl transition transform hover:scale-[1.03] hover:shadow-2xl"
               >
                 Book Your Appointment
               </Link>

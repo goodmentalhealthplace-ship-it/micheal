@@ -52,23 +52,6 @@ export default function MichaelNwannaProfile() {
     animate: { transition: { staggerChildren: 0.1 } }
   };
 
-  // --- MOBILE IMAGE BLOCK ---
-  // Renders the large image on mobile, hidden on desktop (lg:block takes over)
-  const MobileHeroImage = () => (
-    <motion.div
-        variants={fadeInUp}
-        className="w-full h-80 relative overflow-hidden rounded-[40px] shadow-2xl bg-gray-100 mt-8 mb-10 lg:hidden"
-    >
-        <Image
-            src="/clinician-michael-nwanna.jpg" 
-            alt={`Profile photo of ${profile.name}`}
-            layout="fill"
-            objectFit="cover"
-            priority
-        />
-    </motion.div>
-  );
-
   return (
     <motion.div
       initial="initial"
@@ -78,7 +61,7 @@ export default function MichaelNwannaProfile() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-16">
 
-        {/* === 1. HERO: LEFT TEXT / RIGHT IMAGE (Two-Column Layout for Desktop) === */}
+        {/* === 1. HERO: LEFT TEXT / RIGHT IMAGE (Two-Column Layout) === */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center mb-20">
           
           {/* Left Column: Text, Credentials & CTA */}
@@ -99,9 +82,6 @@ export default function MichaelNwannaProfile() {
             <h2 className="text-xl md:text-2xl font-extrabold text-blue-600 mb-4">
               {profile.title} | {profile.primaryRole}
             </h2>
-
-            {/* --- MOBILE IMAGE PLACEMENT (Added Here) --- */}
-            <MobileHeroImage />
 
             <p className="text-lg md:text-xl text-gray-700 max-w-lg mt-4 mb-6">
               {profile.bioSummary}
@@ -126,20 +106,22 @@ export default function MichaelNwannaProfile() {
             </Link>
           </motion.div>
 
-          {/* Right Column: Large Profile Image (Desktop Only) */}
+          {/* Right Column: Large Profile Image */}
           <motion.div
             initial="initial"
             animate="animate"
             variants={fadeInUp}
             transition={{ delay: 0.15 }}
-            className="hidden lg:block w-full h-96 lg:h-[500px] relative overflow-hidden rounded-[40px] shadow-2xl bg-gray-100"
+            className="w-full h-96 lg:h-[500px] relative overflow-hidden rounded-[40px] shadow-2xl bg-gray-100"
           >
             <Image
+              // The original image is used here, now sized to fill the large hero container
               src="/clinician-michael-nwanna.jpg" 
               alt={`Profile photo of ${profile.name}`}
               layout="fill"
-              objectFit="cover"
+              objectFit="cover" // Use cover to ensure the image fills the space
               priority
+              // Remove the rounded-full border-4 classes since the container is rounded-[40px]
             />
           </motion.div>
         </section>
