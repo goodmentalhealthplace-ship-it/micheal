@@ -21,7 +21,8 @@ const COLORS = {
 
 const COMPANY_NAME = "GoodPlace Mental Health Services LLC";
 const COMPANY_PHONE = "9523220768";
-const COMPANY_EMAIL = "admin@goodplacemental<br>healthservices.com";
+const COMPANY_EMAIL_USER = "admin@";
+const COMPANY_EMAIL_DOMAIN = "goodplacementalhealthservices.com";
 const COMPANY_ADDRESS =
   "600 Twelve Oaks Center Drive, Suite 207, Wayzata, MN, 55391";
 
@@ -95,11 +96,9 @@ export default function Footer() {
 
             <div>
               <p className="font-semibold text-[#1A1A1A]">Email</p>
-              <p
-                className="break-all md:break-normal"
-                style={{ color: COLORS.textMuted }}
-              >
-                {COMPANY_EMAIL}
+              <p className="leading-relaxed" style={{ color: COLORS.textMuted }}>
+                <span className="block">{COMPANY_EMAIL_USER}</span>
+                <span className="block">{COMPANY_EMAIL_DOMAIN}</span>
               </p>
             </div>
 
