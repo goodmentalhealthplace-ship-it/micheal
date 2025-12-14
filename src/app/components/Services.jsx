@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 
 // === BRAND COLORS ===
 const BRAND_PRIMARY = "#1A435A";
-const BRAND_ACCENT = "#FF9800";
+const BRAND_ACCENT = "#4CAF50";
 const BRAND_LIGHT_BG = "#F4F9FA";
 
 // === SERVICES DATA ===

@@ -8,9 +8,9 @@ import { FaShieldAlt } from "react-icons/fa";
 
 export default function Conditions() {
   // === BRAND COLORS from Logo ===
-  const BRAND_PRIMARY = "#1A435A"; // Dark Blue/Teal
+  const BRAND_PRIMARY = "#4CAF50"; // Dark Blue/Teal
   const BRAND_SECONDARY = "#4CAF50"; // Bright Green
-  const BRAND_ACCENT = "#FF9800"; // Warm Orange
+  const BRAND_ACCENT = "#4CAE50"; // Warm Orange
   const BRAND_GRAY = "#E0E0E0"; // Light gray for card accents
 
   const conditions = [

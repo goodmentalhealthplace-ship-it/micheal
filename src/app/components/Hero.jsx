@@ -7,12 +7,17 @@ import { motion } from "framer-motion";
 import { MdOutlineHealthAndSafety, MdOutlineVerified } from "react-icons/md";
 import { FaShieldAlt } from "react-icons/fa";
 
-// === BRAND COLORS from Logo (Defined outside component) ===
+// ===================================
+// === BRAND COLORS (Constants) ===
+// ===================================
 const BRAND_PRIMARY = "#1A435A"; // Dark Blue/Teal
 const BRAND_SECONDARY = "#4CAF50"; // Bright Green
 const BRAND_ACCENT = "#FF9800"; // Warm Orange (for CTAs)
-const BRAND_LIGHT_BG = "#F4F9FA"; // Retain a light background color
+const BRAND_LIGHT_BG = "#F4F9FA"; // Light background color
 
+// ===================================
+// === HeroSection Component ===
+// ===================================
 export default function HeroSection() {
   return (
     <section
@@ -21,6 +26,7 @@ export default function HeroSection() {
     >
       {/* ================= HERO TOP SECTION (TEXT & IMAGE) ================= */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 px-6 lg:px-16 pt-24 items-center">
+        
         {/* Left Column: Text Content and CTAs */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -36,22 +42,23 @@ export default function HeroSection() {
             }}
             className="inline-flex items-center gap-2 text-xs md:text-sm font-black px-4 py-1 rounded-full border-2 mb-6 shadow-md"
           >
-            <FaShieldAlt className="text-sm" /> CONFIDENTIAL & PROFESSIONAL
-            CARE
+            <FaShieldAlt className="text-sm" /> CONFIDENTIAL & PROFESSIONAL CARE
           </div>
 
+          {/* Headline */}
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-[#1A1A1A] leading-tight tracking-tight">
             Expert Mental Health Care for Lasting{" "}
             <span style={{ color: BRAND_SECONDARY }}>Stability</span> and{" "}
             <span style={{ color: BRAND_SECONDARY }}>Clarity</span>
           </h1>
 
+          {/* Subheadline/Description */}
           <p className="mt-6 text-xl md:text-2xl text-gray-700 leading-relaxed max-w-lg mb-10">
             Compassionate, professional care designed to help you regain clarity,
             balance, and peace through expert psychiatric services and therapy.
           </p>
 
-          {/* Mobile Image */}
+          {/* Mobile Image (Hidden on large screens) */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -72,7 +79,7 @@ export default function HeroSection() {
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/appointments"
-              style={{ backgroundColor: BRAND_ACCENT }}
+              style={{ backgroundColor: BRAND_SECONDARY }}
               className="px-12 py-5 rounded-2xl font-black text-xl text-white shadow-xl transition transform hover:-translate-y-1 hover:shadow-2xl flex items-center justify-center"
             >
               Book Appointment
@@ -106,7 +113,7 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Right Column: Hero Image */}
+        {/* Right Column: Hero Image (Hidden on small screens) */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
