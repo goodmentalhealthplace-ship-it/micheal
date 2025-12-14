@@ -13,7 +13,7 @@ import {
 // === BRAND COLORS ===
 const BRAND_PRIMARY = "#1A435A";
 const BRAND_SECONDARY = "#4CAF50";
-const BRAND_ACCENT = "#FF9800";
+const BRAND_ACCENT = "#4CAF50";
 
 const FEATURES = [
   {

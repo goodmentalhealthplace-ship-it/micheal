@@ -104,7 +104,7 @@ export default function MichaelNwannaProfile() {
             <motion.div variants={itemVariants} className="mt-8 text-center lg:text-left">
                 <Link 
                   href="/contact"
-                  className="inline-flex items-center gap-2 text-lg font-bold text-white px-8 py-4 rounded-2xl bg-[#306EFF] hover:bg-opacity-90 transition shadow-lg"
+                  className="inline-flex items-center gap-2 text-lg font-bold text-white px-8 py-4 rounded-2xl bg-[#4CAF50] hover:bg-opacity-90 transition shadow-lg"
                 >
                     Book a Consult with Michael →
                 </Link>

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "GrowthFairness Psychiatry PLLC",
+  title: "GoodPlace MentaL Health Clinic",
   description: "Mental Health Company in Texas",
 };
 

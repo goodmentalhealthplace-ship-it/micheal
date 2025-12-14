@@ -4,14 +4,12 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FaShieldAlt } from "react-icons/fa"; 
 
 export default function Conditions() {
-  // === BRAND COLORS from Logo ===
-  const BRAND_PRIMARY = "#4CAF50"; // Dark Blue/Teal
-  const BRAND_SECONDARY = "#4CAF50"; // Bright Green
-  const BRAND_ACCENT = "#4CAE50"; // Warm Orange
-  const BRAND_GRAY = "#E0E0E0"; // Light gray for card accents
+  const BRAND_PRIMARY = "#4CAF50";
+  const BRAND_SECONDARY = "#4CAF50";
+  const BRAND_ACCENT = "#4CAE50";
+  const BRAND_GRAY = "#E0E0E0";
 
   const conditions = [
     {
@@ -38,7 +36,7 @@ export default function Conditions() {
     {
       title: "OCD",
       imagePath: "/ocd.png",
-      description: "Obsessive-compulsive and related disorders.",
+      description: "Obsessive compulsive and related disorders.",
       color: BRAND_PRIMARY,
       href: "/ocd",
     },
@@ -59,49 +57,47 @@ export default function Conditions() {
     {
       title: "PTSD & Trauma",
       imagePath: "/ptsd.png",
-      description: "Coping with trauma symptoms, flashbacks, and hypervigilance.",
+      description: "Coping with trauma symptoms and hypervigilance.",
       color: BRAND_PRIMARY,
       href: "/ptsd",
     },
   ];
 
   const cardVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
+    hidden: { opacity: 0, y: 30 },
     visible: (i) => ({
       opacity: 1,
-      scale: 1,
-      transition: {
-        delay: i * 0.08,
-        duration: 0.5,
-        ease: "easeOut",
-      },
+      y: 0,
+      transition: { delay: i * 0.06, duration: 0.45 },
     }),
   };
 
   return (
-    <section className="w-full bg-gray-50/50 pt-16 pb-24 overflow-x-hidden">
-      <div className="max-w-7xl mx-auto px-6 lg:px-16">
+    <section className="w-full bg-gray-50/50 pt-14 pb-20 overflow-x-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-14">
+        {/* HEADING */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-14"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-950 mb-4 tracking-tight">
+          <h2 className="text-3xl md:text-4xl lg:text-[2.5rem] font-extrabold text-gray-950 mb-4 tracking-tight">
             Comprehensive Care for Common Conditions
           </h2>
-          <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-            Our compassionate specialists are here to guide you toward healing and stability, addressing a wide range of mental health challenges.
+
+          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+            Compassionate specialists supporting healing, clarity, and stability across a wide range of mental health needs.
           </p>
-          {/* Divider bar with Dark Blue/Teal color */}
+
           <div
+            className="h-1 w-20 mt-4 mx-auto rounded-full"
             style={{ backgroundColor: BRAND_PRIMARY }}
-            className="h-1.5 w-24 mt-4 mx-auto rounded-full"
           />
         </motion.div>
 
-        {/* MODIFIED GRID LAYOUT: grid-cols-1 (mobile), sm:grid-cols-3 (tablet), and lg:grid-cols-3 (desktop) */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6">
+        {/* CARDS */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-5">
           {conditions.map((condition, i) => (
             <motion.div
               key={i}
@@ -110,39 +106,35 @@ export default function Conditions() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={cardVariants}
-              className="rounded-3xl bg-white shadow-xl hover:shadow-[0_20px_40px_rgba(26,67,90,0.08)] transition-all duration-300 flex flex-col group hover:scale-[1.03] overflow-hidden"
+              className="rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden"
             >
-              {/* IMAGE DISPLAY AREA - FULL WIDTH BANNER */}
+              {/* IMAGE */}
               <div
-                className="w-full aspect-video relative rounded-t-3xl"
-                style={{
-                  backgroundColor: BRAND_GRAY,
-                }}
+                className="relative w-full aspect-[4/3]"
+                style={{ backgroundColor: BRAND_GRAY }}
               >
                 <Image
                   src={condition.imagePath}
                   alt={condition.title}
                   fill
-                  objectFit="cover"
-                  className="rounded-t-3xl"
+                  className="object-cover"
                 />
               </div>
-              
-              {/* TEXT CONTENT AREA */}
-              <div className="p-4 md:p-6 flex flex-col items-center text-center flex-grow">
-                <h3 className="font-extrabold text-gray-950 text-lg md:text-xl mb-3 leading-tight">
+
+              {/* CONTENT */}
+              <div className="px-5 py-4 flex flex-col text-center flex-grow">
+                <h3 className="font-bold text-gray-950 text-lg mb-2">
                   {condition.title}
                 </h3>
 
-                <p className="text-sm text-gray-600 font-medium flex-grow">
+                <p className="text-sm text-gray-600 flex-grow">
                   {condition.description}
                 </p>
 
-                {/* Optional Link to Condition Page */}
                 <Link
                   href={condition.href}
                   style={{ color: condition.color }}
-                  className="text-sm font-bold mt-3 inline-flex items-center gap-1 hover:underline"
+                  className="mt-3 text-sm font-semibold hover:underline"
                 >
                   Learn More →
                 </Link>
@@ -151,18 +143,17 @@ export default function Conditions() {
           ))}
         </div>
 
-        <div className="text-center mt-16">
+        {/* CTA */}
+        <div className="text-center mt-14">
           <Link
-            // 🏆 UPDATED HREF
             href="/services"
             style={{
               backgroundColor: BRAND_PRIMARY,
-              color: 'white',
-              boxShadow: `0 8px 20px -5px ${BRAND_PRIMARY}60`,
+              color: "white",
+              boxShadow: `0 8px 18px -6px ${BRAND_PRIMARY}60`,
             }}
-            className="px-10 py-5 rounded-2xl font-black text-xl transition transform hover:-translate-y-0.5 hover:shadow-xl inline-flex items-center gap-2"
+            className="px-8 py-4 rounded-xl font-bold text-lg transition hover:-translate-y-0.5 hover:shadow-xl inline-flex items-center gap-2"
           >
-            {/* 🏆 UPDATED TEXT */}
             Explore Services
           </Link>
         </div>
