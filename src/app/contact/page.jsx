@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image'; // New import for the hero image
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { 
   FaMapMarkerAlt, 
@@ -10,14 +10,19 @@ import {
   FaCalendarCheck,
   FaClock,
   FaCommentDots, 
-  FaArrowRight // Added for CTA clarity
+  FaArrowRight 
 } from 'react-icons/fa';
 
+// --- CONSTANTS: CONTACT INFO ---
+const OFFICE_ADDRESS = "600 Twelve Oaks Center Drive, Suite 207, Wayzata, MN, 55391";
+const PHONE_NUMBER = "9523220768";
+const DISPLAY_PHONE = "(952) 322-0768";
+
 // --- BRAND COLOR CODES ---
-const HIGHLIGHT_BLUE = "#4CAF50"; // Trust, Authority (Used for secondary elements, formerly a distinct blue)
-const ACCENT_ORANGE = "#4CAF50"; // Action, Focus (Primary CTA color)
-const SECONDARY_GREEN = "#30A04C"; // Wellness, Hope (Used for titles/emphasis)
-const DARK_TEXT = "#1A1A1A"; // Dark Text
+const HIGHLIGHT_BLUE = "#4CAF50"; 
+const ACCENT_ORANGE = "#4CAF50"; 
+const SECONDARY_GREEN = "#30A04C"; 
+const DARK_TEXT = "#1A1A1A"; 
 
 export default function ContactUsPage() {
 
@@ -25,21 +30,21 @@ export default function ContactUsPage() {
     { 
       title: "General Inquiries", 
       icon: FaEnvelope, 
-      detail: "support@goodmentalhealthplace.com", 
-      link: "mailto:support@goodmentalhealthplace.com",
+      detail: ADMIN_EMAIL, 
+      link: `mailto:${ADMIN_EMAIL}`,
       color: HIGHLIGHT_BLUE
     },
     { 
       title: "Call Us Directly", 
       icon: FaPhone, 
-      detail: "(800) 555-1234", 
-      link: "tel:8005551234",
+      detail: DISPLAY_PHONE, 
+      link: `tel:${PHONE_NUMBER}`,
       color: ACCENT_ORANGE
     },
     { 
       title: "Mailing Address", 
       icon: FaMapMarkerAlt, 
-      detail: "123 Wellness Ave, Suite 100, Anytown, USA 12345", 
+      detail: OFFICE_ADDRESS, 
       link: "#",
       color: SECONDARY_GREEN
     },
@@ -137,64 +142,64 @@ export default function ContactUsPage() {
         {/* === 2. CONTACT FORM (IFRAME) BLOCK === */}
         <motion.div variants={fadeInUp} className="mb-20" id="contact-form">
             <h2 className="text-3xl font-black text-[#1A1A1A] text-center mb-6">
-                Send Us a Secure Message
+              Send Us a Secure Message
             </h2>
             <p className="text-lg text-gray-600 text-center mb-8">
-                Please use the form below for all non-urgent communications. Our administrative staff will follow up within 24 business hours.
+              Please use the form below for all non-urgent communications. Our administrative staff will follow up within 24 business hours.
             </p>
             
             <IframeContainer html={zohoIframeHtml} />
             
             <p className="text-center text-sm text-gray-500 mt-4">
-                *If this is a medical emergency, please call 911 or visit your nearest emergency room immediately.
+              *If this is a medical emergency, please call 911 or visit your nearest emergency room immediately.
             </p>
         </motion.div>
 
-        {/* === 3. ALTERNATIVE CONTACT & HOURS GRID (Content remains the same) === */}
+        {/* === 3. ALTERNATIVE CONTACT & HOURS GRID === */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-12">
             
             {/* Contact Methods */}
             {contactMethods.map((method, i) => (
-                <motion.div
-                    key={i}
-                    variants={fadeInUp}
-                    className="p-6 rounded-2xl bg-white shadow-lg border-t-4 flex flex-col items-start"
-                    style={{ borderColor: method.color }}
-                >
-                    <method.icon size={30} className="mb-4" style={{ color: method.color }} />
-                    <h3 className="font-bold text-gray-950 text-xl mb-2">
-                        {method.title}
-                    </h3>
-                    <p className="text-lg text-gray-700 font-medium break-words">
-                        {method.detail}
-                    </p>
-                    {method.link !== "#" && (
-                         <Link href={method.link} className="mt-3 text-sm font-bold text-[#306EFF] hover:underline transition">
-                            {method.title === "Call Us Directly" ? "Call Now" : "Send Email"}
-                         </Link>
-                    )}
-                </motion.div>
+              <motion.div
+                  key={i}
+                  variants={fadeInUp}
+                  className="p-6 rounded-2xl bg-white shadow-lg border-t-4 flex flex-col items-start"
+                  style={{ borderColor: method.color }}
+              >
+                  <method.icon size={30} className="mb-4" style={{ color: method.color }} />
+                  <h3 className="font-bold text-gray-950 text-xl mb-2">
+                      {method.title}
+                  </h3>
+                  <p className="text-lg text-gray-700 font-medium break-words">
+                      {method.detail}
+                  </p>
+                  {method.link !== "#" && (
+                       <Link href={method.link} className="mt-3 text-sm font-bold text-[#306EFF] hover:underline transition">
+                          {method.title === "Call Us Directly" ? "Call Now" : "Send Email"}
+                       </Link>
+                  )}
+              </motion.div>
             ))}
             
             {/* Office Hours / Booking CTA */}
             <motion.div 
-                variants={fadeInUp}
-                className="p-6 rounded-2xl bg-[#1B3C6A] text-white shadow-xl border-t-4 border-[#FFAA00] flex flex-col items-start"
+              variants={fadeInUp}
+              className="p-6 rounded-2xl bg-[#1B3C6A] text-white shadow-xl border-t-4 border-[#FFAA00] flex flex-col items-start"
             >
-                <FaClock size={30} className="mb-4 text-[#FFAA00]" />
-                <h3 className="font-bold text-xl mb-2">
-                    Office Hours
-                </h3>
-                <ul className="text-lg space-y-1">
-                    <li>Mon - Fri: 9:00 AM - 5:00 PM</li>
-                    <li>Sat - Sun: Closed</li>
-                </ul>
-                <Link 
-                    href="/appointments"
-                    className="mt-4 w-full text-center px-4 py-3 rounded-xl font-bold text-white bg-[#FFAA00] hover:bg-opacity-90 transition shadow-md"
-                >
-                    <FaCalendarCheck className="inline mr-2" /> Book Now
-                </Link>
+              <FaClock size={30} className="mb-4 text-[#FFAA00]" />
+              <h3 className="font-bold text-xl mb-2">
+                  Office Hours
+              </h3>
+              <ul className="text-lg space-y-1">
+                  <li>Mon - Fri: 9:00 AM - 5:00 PM</li>
+                  <li>Sat - Sun: Closed</li>
+              </ul>
+              <Link 
+                  href="/appointments"
+                  className="mt-4 w-full text-center px-4 py-3 rounded-xl font-bold text-white bg-[#FFAA00] hover:bg-opacity-90 transition shadow-md"
+              >
+                  <FaCalendarCheck className="inline mr-2" /> Book Now
+              </Link>
             </motion.div>
         </div>
         

@@ -38,6 +38,7 @@ export default function Header() {
     };
   }, []);
 
+  // --- UPDATED NAVIGATION ITEMS ---
   const desktopNavItems = [
     { name: "Home", route: "/" },
     {
@@ -70,6 +71,9 @@ export default function Header() {
         { name: "PTSD", route: "/ptsd" },
       ],
     },
+    // --- NEW BLOG ITEM INSERTED HERE ---
+    { name: "Blog", route: "/blog" },
+    // -----------------------------------
     { name: "Insurances", route: "/insurances" },
     { name: "Appointments", route: "/appointments" },
     { name: "Contact", route: "/contact" },

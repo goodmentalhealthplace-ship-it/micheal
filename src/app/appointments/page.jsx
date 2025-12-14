@@ -1,5 +1,5 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react'; // Import useState for modal management
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -9,18 +9,72 @@ import {
   FaFileInvoiceDollar,
   FaLaptopMedical,
   FaCheckCircle,
-  FaPhone
+  FaPhone,
+  FaTimes // Icon for closing the modal
 } from 'react-icons/fa';
 
+// --- CONSTANTS: CONTACT INFO ---
+const PHONE_NUMBER = "9523220768";
+const DISPLAY_PHONE = "(952) 322-0768";
+const EMAIL_ADDRESS = "admin@goodplacementalhealthservices.com";
+
 // --- CONSTANTS: BRAND COLOR CODES ---
-const HIGHLIGHT_BLUE = "#4CAF50"; // Trust, Authority (Original was different, maintaining original logic)
-const ACCENT_ORANGE = "#4CAF50"; // Action, Focus (Primary CTA color)
-const SECONDARY_GREEN = "#30A04C"; // Wellness, Hope (Titles/Emphasis)
-const DARK_TEXT = "#1A1A1A"; // Dark Text
-const PRIMARY_BLUE = "#1B3C6A"; // Main Section Color (used in CTA and Step icons)
-const PRIMARY_GREEN_CTA = "#4CAF59"; // CTA Button Color (used in TrustCTASection)
+const HIGHLIGHT_BLUE = "#4CAF50"; 
+const ACCENT_ORANGE = "#4CAF50"; 
+const SECONDARY_GREEN = "#30A04C"; 
+const DARK_TEXT = "#1A1A1A"; 
+const PRIMARY_BLUE = "#1B3C6A"; 
+const PRIMARY_GREEN_CTA = "#4CAF59"; 
 
 // --- COMPONENTS ---
+
+/**
+ * @description Modal component to display the Google Calendar appointment scheduler.
+ */
+function BookingModal({ isOpen, onClose }) {
+  if (!isOpen) return null;
+
+  // The Google Calendar embed code provided by the user
+  const calendarEmbed = '\
+<iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2BTiJkVST2igfVNjdeHxzbxlp4G_s026p0tIDeXTXuVAkcpoQNcYjFmZx3MsxvbzQoiVswUA0E?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>\
+';
+
+  return (
+    // Overlay
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-4 backdrop-blur-sm">
+      
+      {/* Modal Container */}
+      <motion.div
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.9, opacity: 0 }}
+        className="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden relative"
+      >
+        
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 p-2 text-gray-700 hover:text-red-600 transition bg-white rounded-full shadow-md"
+          aria-label="Close Booking Portal"
+        >
+          <FaTimes size={24} />
+        </button>
+
+        <div className="p-4 md:p-6 w-full h-full">
+          <h2 className="text-2xl font-black text-center text-gray-800 mb-4">
+            Select Your Appointment Time
+          </h2>
+          
+          {/* Iframe content using dangerouslySetInnerHTML */}
+          <div 
+            className="w-full h-[600px]"
+            dangerouslySetInnerHTML={{ __html: calendarEmbed }} 
+          />
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 /**
  * @description A highly engaging Call-to-Action section emphasizing trust and action.
@@ -125,6 +179,7 @@ const TrustCTASection = () => {
  * @description Main page component for Appointment Booking.
  */
 export default function AppointmentBookingPage() {
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false); // State for booking modal
 
   // --- DATA ---
   const bookingSteps = [
@@ -154,7 +209,7 @@ export default function AppointmentBookingPage() {
     },
   ];
 
-  // --- ANIMATION VARIANTS ---
+  // --- ANIMATION VARIANTS (kept for the main component structure) ---
   const fadeInUp = {
     initial: { opacity: 0, y: 30 },
     animate: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -197,14 +252,14 @@ export default function AppointmentBookingPage() {
               Confidential psychiatric care is just a few clicks away. Start your smooth, stress-free journey to wellness today.
             </p>
 
-            <Link
-              href="#" // Placeholder link to be updated
+            {/* UPDATED: Link is now a button that opens the modal */}
+            <button
               className="inline-flex items-center gap-2 px-10 py-5 rounded-2xl font-black text-xl text-white shadow-xl transition transform hover:-translate-y-0.5 hover:shadow-2xl"
               style={{ backgroundColor: ACCENT_ORANGE }}
-              onClick={(e) => e.preventDefault()}
+              onClick={() => setIsBookingModalOpen(true)}
             >
               <FaCalendarCheck /> Access Booking Portal
-            </Link>
+            </button>
           </motion.div>
 
           {/* Right Column: Hero Image */}
@@ -216,7 +271,7 @@ export default function AppointmentBookingPage() {
             className="w-full h-80 lg:h-[400px] relative overflow-hidden rounded-[40px] shadow-2xl"
           >
             <Image
-              src="/appointment-hero.png" // Using a new, descriptive placeholder image file name
+              src="/appointment-hero.png" 
               alt="Illustration of secure online appointment scheduling or a virtual consultation."
               layout="fill"
               objectFit="cover"
@@ -238,7 +293,7 @@ export default function AppointmentBookingPage() {
                 custom={i}
                 variants={stepItem}
                 className="p-6 md:p-8 bg-[#F8F9FA] rounded-3xl shadow-lg border-t-4 transition hover:shadow-xl"
-                style={{ borderColor: i === 3 ? '#306EFF' : SECONDARY_GREEN }} // Using constant for consistency
+                style={{ borderColor: i === 3 ? '#306EFF' : SECONDARY_GREEN }} 
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className={`w-10 h-10 flex items-center justify-center rounded-full text-xl font-black text-white bg-[${PRIMARY_BLUE}]`}>
@@ -268,9 +323,17 @@ export default function AppointmentBookingPage() {
               If you have urgent questions regarding appointment eligibility, insurance, or general inquiries, please contact our administrative office directly.
             </p>
 
+            {/* UPDATED: Phone and Email */}
             <ul className="text-lg text-gray-800 space-y-3 pl-2 font-medium">
-              <li><span className="font-bold">Phone:</span> (800) 555-1234 (M-F, 9am-5pm CST)</li>
-              <li><span className="font-bold">Email:</span> support@goodplacemh.com</li>
+              <li>
+                <span className="font-bold">Phone:</span> 
+                <Link href={`tel:${PHONE_NUMBER}`} className="text-blue-600 hover:underline ml-1">{DISPLAY_PHONE}</Link>
+                {" "} (M-F, 9am-5pm CST)
+              </li>
+              <li>
+                <span className="font-bold">Email:</span> 
+                <Link href={`mailto:${EMAIL_ADDRESS}`} className="text-blue-600 hover:underline ml-1">{EMAIL_ADDRESS}</Link>
+              </li>
             </ul>
 
             <Link
@@ -308,6 +371,12 @@ export default function AppointmentBookingPage() {
           <TrustCTASection />
         </div>
       </div>
+      
+      {/* === BOOKING MODAL RENDERED HERE === */}
+      <BookingModal 
+        isOpen={isBookingModalOpen} 
+        onClose={() => setIsBookingModalOpen(false)} 
+      />
     </motion.div>
   );
 }
