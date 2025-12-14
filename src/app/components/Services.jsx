@@ -114,7 +114,7 @@ export default function ServicesSection() {
 
             <p className="text-lg text-gray-700 leading-relaxed max-w-xl">
               Every service below is offered with care, collaboration, and a
-              deep respect for your individual journey.
+              deep respect for your individual journey..
             </p>
           </div>
         </div>
