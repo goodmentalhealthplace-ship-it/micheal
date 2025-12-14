@@ -7,8 +7,6 @@ const client = createClient({
 });
 
 async function getPost(slug) {
-  if (!slug) return null;
-
   const res = await client.getEntries({
     content_type: "blogPost",
     "fields.slug": slug,
@@ -18,18 +16,15 @@ async function getPost(slug) {
   return res.items[0];
 }
 
-export default async function Page({ params }) {
+export default async function BlogPostPage({ params }) {
   const post = await getPost(params.slug);
 
   if (!post) {
     notFound();
   }
 
-  const { title, body, publishDate, featuredImage } = post.fields;
-
-  const imageUrl = featuredImage
-    ? `https:${featuredImage.fields.file.url}`
-    : null;
+  const image = post.fields.featuredImage;
+  const imageUrl = image ? `https:${image.fields.file.url}` : null;
 
   return (
     <main
@@ -43,33 +38,23 @@ export default async function Page({ params }) {
       {imageUrl && (
         <img
           src={imageUrl}
-          alt={title}
+          alt={post.fields.title}
           style={{
             width: "100%",
-            height: "auto",
-            borderRadius: "12px",
+            borderRadius: "10px",
             marginBottom: "24px",
           }}
         />
       )}
 
       {/* Title */}
-      <h1 style={{ marginBottom: "8px" }}>{title}</h1>
+      <h1 style={{ marginBottom: "20px" }}>
+        {post.fields.title}
+      </h1>
 
-      {/* Publish Date */}
-      {publishDate && (
-        <p style={{ color: "#777", marginBottom: "24px" }}>
-          {new Date(publishDate).toDateString()}
-        </p>
-      )}
-
-      {/* Body Content */}
-      {body?.content?.map((block, index) => {
+      {/* Body */}
+      {post.fields.body.content.map((block, index) => {
         if (block.nodeType === "paragraph") {
-          const text = block.content
-            .map((item) => item.value)
-            .join("");
-
           return (
             <p
               key={index}
@@ -79,7 +64,7 @@ export default async function Page({ params }) {
                 fontSize: "16px",
               }}
             >
-              {text}
+              {block.content?.[0]?.value}
             </p>
           );
         }
